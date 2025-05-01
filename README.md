@@ -28,6 +28,7 @@ This repository serves as a personal reference for competitive programming conte
 ### Backtracking
 - [Permutations](backtrack/permutations.md)
 - [Combinations](backtrack/combinations.md)
+- [Subsets](backtrack/subsets.md)
 
 ### Math
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
@@ -178,7 +179,7 @@ This repository serves as a personal reference for competitive programming conte
 
 - [x] Permutations
 - [x] Combinations
-- [ ] Subset Generation
+- [x] Subset Generation
 - [ ] N-Queens Problem
 - [ ] Sudoku Solver
 - [ ] Maze Solver
