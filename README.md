@@ -26,7 +26,7 @@ This repository serves as a personal reference for competitive programming conte
 
 - **Graph Algorithms**
   - [x] BFS / DFS
-  - [ ] Dijkstra's Algorithm
+  - [x] Dijkstra's Algorithm
   - [ ] Bellman-Ford Algorithm
   - [ ] Floyd-Warshall Algorithm
   - [ ] Minimum Spanning Tree (Kruskal/Prim)
