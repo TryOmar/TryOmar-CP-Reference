@@ -28,7 +28,7 @@ This repository serves as a personal reference for competitive programming conte
   - [x] BFS / DFS
   - [x] Dijkstra's Algorithm
   - [ ] Bellman-Ford Algorithm
-  - [ ] Floyd-Warshall Algorithm
+  - [x] Floyd-Warshall Algorithm
   - [ ] Minimum Spanning Tree (Kruskal/Prim)
   - [x] Topological Sort (Kahn's Algorithm)
   - [ ] Strongly Connected Components (Kosaraju/Tarjan)
