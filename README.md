@@ -22,6 +22,9 @@ This repository serves as a personal reference for competitive programming conte
 - [Path Finding](graph/path_finding.md)
 - [Cycle Detection](graph/cycle_detection.md)
 
+### Strings
+- [Trie (Prefix Tree)](strings/trie.md)
+
 ## 📝 Implementation Progress
 
 <details>
@@ -96,7 +99,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Z-Algorithm
 - [ ] Rolling Hash
 - [ ] Rabin-Karp
-- [ ] Trie
+- [x] Trie
 - [ ] Suffix Array
 - [ ] Suffix Tree
 - [ ] Aho-Corasick
