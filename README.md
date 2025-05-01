@@ -17,7 +17,7 @@ This repository serves as a personal reference for competitive programming conte
 - [BFS](graph/bfs.md)
 - [Dijkstra's Algorithm](graph/dijkstra.md)
 - [Floyd-Warshall Algorithm](graph/floyd_warshall.md)
-- [Topological Sort (Kahn's Algorithm)](graph/kahns_algorithm.md)
+- [Topological Sort](graph/topological_sort.md)
 - [Path Finding](graph/path_finding.md)
 - [Cycle Detection](graph/cycle_detection.md)
 
@@ -62,7 +62,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Bellman-Ford Algorithm
 - [x] Floyd-Warshall Algorithm
 - [ ] Minimum Spanning Tree (Kruskal/Prim)
-- [x] Topological Sort (Kahn's Algorithm)
+- [x] Topological Sort
 - [ ] Strongly Connected Components (Kosaraju/Tarjan)
 - [ ] Articulation Points and Bridges
 - [ ] Biconnected Components
