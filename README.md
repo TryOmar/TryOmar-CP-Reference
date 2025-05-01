@@ -29,6 +29,7 @@ This repository serves as a personal reference for competitive programming conte
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
 - [GCD and LCM](math/gcd_lcm.md)
 - [Permutations (Backtracking)](math/permutations.md)
+- [Combinations (Backtracking)](math/combinations.md)
 
 ## 📝 Implementation Progress
 
@@ -90,7 +91,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Gaussian Elimination
 - [x] Combinatorics
   - [x] Permutations
-  - [ ] Combinations
+  - [x] Combinations
 - [ ] Catalan Numbers
 - [ ] Probability
 - [ ] Expected Value
