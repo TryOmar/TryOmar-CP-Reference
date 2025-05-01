@@ -25,11 +25,13 @@ This repository serves as a personal reference for competitive programming conte
 ### Strings
 - [Trie (Prefix Tree)](strings/trie.md)
 
+### Backtracking
+- [Permutations](backtrack/permutations.md)
+- [Combinations](backtrack/combinations.md)
+
 ### Math
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
 - [GCD and LCM](math/gcd_lcm.md)
-- [Permutations (Backtracking)](math/permutations.md)
-- [Combinations (Backtracking)](math/combinations.md)
 
 ## 📝 Implementation Progress
 
@@ -169,6 +171,17 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Interactive problems approach
 - [ ] Randomized algorithms
 - [ ] Heuristics
+</details>
+
+<details>
+<summary><b>Backtracking</b></summary>
+
+- [x] Permutations
+- [x] Combinations
+- [ ] Subset Generation
+- [ ] N-Queens Problem
+- [ ] Sudoku Solver
+- [ ] Maze Solver
 </details>
 
 ## 📲 Contact
