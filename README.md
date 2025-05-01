@@ -25,6 +25,9 @@ This repository serves as a personal reference for competitive programming conte
 ### Strings
 - [Trie (Prefix Tree)](strings/trie.md)
 
+### Math
+- [Fast Power (Binary Exponentiation)](math/fast_power.md)
+
 ## 📝 Implementation Progress
 
 <details>
@@ -78,7 +81,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Extended Euclidean Algorithm
 - [ ] Chinese Remainder Theorem
 - [ ] Euler's Totient Function
-- [ ] Fast Exponentiation
+- [x] Fast Exponentiation
 - [ ] Matrix Operations
 - [ ] Matrix Exponentiation
 - [ ] Gaussian Elimination
