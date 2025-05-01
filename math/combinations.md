@@ -15,19 +15,19 @@ int main() {
     vector<vector<int>> result;
     vector<int> comb;
 
-    function<void(int, int)> combine = [&](int start, int depth) {
-        if (depth == k) {
+    function<void(int)> combine = [&](int start) {
+        if (comb.size() == k) {
             result.push_back(comb);
             return;
         }
         for (int i = start; i < nums.size(); i++) {
             comb.push_back(nums[i]);
-            combine(i + 1, depth + 1);
+            combine(i + 1);
             comb.pop_back();
         }
     };
 
-    combine(0, 0);
+    combine(0);
 
     for (auto& c : result) {
         for (int num : c) cout << num << " ";
