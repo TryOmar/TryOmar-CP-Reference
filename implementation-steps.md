@@ -8,7 +8,7 @@
 ## Data Structures
 - [x] Segment Tree (Iterative)
 - [ ] Fenwick Tree / Binary Indexed Tree
-- [ ] Disjoint Set Union (DSU)
+- [x] Disjoint Set Union (DSU)
 - [ ] Sparse Table
 
 ## Graph Algorithms
