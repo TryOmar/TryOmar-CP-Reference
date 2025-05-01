@@ -89,6 +89,44 @@ int main() {
 
 ---
 
+## ✅ Combinations of Size K
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> nums = {1, 2, 3};
+    int k = 2;
+    vector<vector<int>> result;
+    vector<int> comb;
+
+    function<void(int, int)> combine = [&](int start, int depth) {
+        if (depth == k) {
+            result.push_back(comb);
+            return;
+        }
+        for (int i = start; i < nums.size(); i++) {
+            comb.push_back(nums[i]);
+            combine(i + 1, depth + 1);
+            comb.pop_back();
+        }
+    };
+
+    combine(0, 0);
+
+    for (auto& c : result) {
+        for (int num : c) cout << num << " ";
+        cout << endl;
+    }
+
+    return 0;
+}
+```
+
+---
+
 ## 📘 Notes
 
 ### For Permutations Without Duplicates:
@@ -101,6 +139,11 @@ int main() {
 - Prevents generating duplicate permutations
 - More efficient for inputs with repeated elements
 
+### For Combinations:
+- Uses a starting index parameter to avoid duplicates
+- Generates all possible combinations of size k from the input array
+- No element is used more than once in each combination
+
 ---
 
 ## 📈 Complexity
@@ -111,4 +154,8 @@ int main() {
 
 ### Permutations With Duplicates:
 - **Time Complexity**: `O(n! * n)` due to factorial permutations and element checking
-- **Space Complexity**: `O(n!)` to store the resulting permutations 
+- **Space Complexity**: `O(n!)` to store the resulting permutations
+
+### Combinations:
+- **Time Complexity**: `O(n choose k)` or `O(n!/(k!(n-k)!))` where `n` is the number of elements and `k` is the size of each combination
+- **Space Complexity**: `O(n choose k)` to store all combinations 
