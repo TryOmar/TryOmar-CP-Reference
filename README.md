@@ -4,55 +4,124 @@ A curated collection of algorithms, data structures, and templates for competiti
 
 ## 🎯 Purpose
 
-This repository serves as a personal reference for competitive programming contests, providing organized and reusable code templates and solutions for various algorithms, data structures, and problem-solving techniques. Feel free to use these implementations in your own competitive programming journey.
+This repository serves as a personal reference for competitive programming contests, providing organized and reusable code templates for common algorithms and data structures.
 
-## 📚 Contents
+## 📝 Implementation Progress
 
-### 📊 Data Structures
-Ready-to-use implementations of essential data structures:
-- [Segment Tree (Iterative)](data_structures/segment_tree_iterative.md) - For efficient range queries and point updates
-- Fenwick Tree / Binary Indexed Tree (BIT)
-- Disjoint Set Union (DSU) / Union Find
-- Sparse Table
+- **Data Structures**
+  - [x] Segment Tree (Iterative)
+  - [x] Disjoint Set Union (DSU)
+  - [ ] Fenwick Tree / Binary Indexed Tree
+  - [ ] Sparse Table
+  - [ ] Treap
+  - [ ] Persistent Segment Tree
+  - [ ] Implicit Segment Tree
+  - [ ] Sqrt Decomposition
+  - [ ] Mo's Algorithm
+  - [ ] Heavy-Light Decomposition
+  - [ ] Wavelet Tree
+  - [ ] Lazy Propagation Segment Tree
+  - [ ] 2D Data Structures
+  - [ ] Policy-Based Data Structures (C++)
 
-### 🔗 Graph Algorithms
-Graph algorithms for tackling network and path-finding problems:
-- BFS / DFS
-- Dijkstra's Algorithm
-- Minimum Spanning Tree (Kruskal/Prim)
-- Topological Sort
-- Strongly Connected Components
+- **Graph Algorithms**
+  - [x] BFS / DFS
+  - [ ] Dijkstra's Algorithm
+  - [ ] Bellman-Ford Algorithm
+  - [ ] Floyd-Warshall Algorithm
+  - [ ] Minimum Spanning Tree (Kruskal/Prim)
+  - [ ] Topological Sort
+  - [ ] Strongly Connected Components (Kosaraju/Tarjan)
+  - [ ] Articulation Points and Bridges
+  - [ ] Biconnected Components
+  - [ ] Euler Path/Circuit
+  - [ ] Maximum Flow (Ford-Fulkerson, Dinic, Push-Relabel)
+  - [ ] Minimum Cost Maximum Flow
+  - [ ] Bipartite Matching
+  - [ ] Hungarian Algorithm
+  - [ ] Lowest Common Ancestor (LCA)
+  - [ ] Centroid Decomposition
 
-### 🧮 Math
-Mathematical algorithms and number theory implementations:
-- Sieve of Eratosthenes
-- Modular Arithmetic
-- Matrix Operations
-- Combinatorics
+- **Math**
+  - [ ] Sieve of Eratosthenes
+  - [ ] Linear Sieve
+  - [ ] Segmented Sieve
+  - [ ] Prime Factorization
+  - [ ] Modular Arithmetic
+  - [ ] Extended Euclidean Algorithm
+  - [ ] Chinese Remainder Theorem
+  - [ ] Euler's Totient Function
+  - [ ] Fast Exponentiation
+  - [ ] Matrix Operations
+  - [ ] Matrix Exponentiation
+  - [ ] Gaussian Elimination
+  - [ ] Combinatorics
+  - [ ] Catalan Numbers
+  - [ ] Probability
+  - [ ] Expected Value
+  - [ ] Game Theory
+  - [ ] Nimbers and Grundy Numbers
+  - [ ] Fast Fourier Transform (FFT)
+  - [ ] Number Theoretic Transform (NTT)
 
-### 📝 Strings
-String manipulation algorithms:
-- KMP (Knuth-Morris-Pratt)
-- Rolling Hash
-- Trie
-- Z-Algorithm
+- **Strings**
+  - [ ] KMP (Knuth-Morris-Pratt)
+  - [ ] Z-Algorithm
+  - [ ] Rolling Hash
+  - [ ] Rabin-Karp
+  - [ ] Trie
+  - [ ] Suffix Array
+  - [ ] Suffix Tree
+  - [ ] Aho-Corasick
+  - [ ] Manacher's Algorithm
+  - [ ] Palindromic Tree
+  - [ ] Suffix Automaton
 
-### 📄 Templates
-Templates to kickstart contest solving:
-- Fast I/O
-- Common macros and typedefs
-- Debugging utilities
+- **Geometry**
+  - [ ] Points, Lines, Vectors
+  - [ ] Polygon Area
+  - [ ] Convex Hull
+  - [ ] Line Sweep
+  - [ ] Closest Pair of Points
+  - [ ] Point in Polygon
+  - [ ] Line Intersection
+  - [ ] Circle Intersection
+  - [ ] Rotating Calipers
+  - [ ] Delaunay Triangulation
 
-### 📓 Notes
-Helpful tips and strategies:
-- Common edge cases
-- Contest time management
-- Problem-solving approaches
+- **Dynamic Programming**
+  - [ ] Classical Problems
+  - [ ] Optimization Techniques
+  - [ ] Digit DP
+  - [ ] DP on Trees
+  - [ ] DP with Bitmasks
+  - [ ] DP with Convex Hull Trick
+  - [ ] DP with Divide and Conquer
+  - [ ] SOS DP
 
-## 👨‍💻 Author
+- **Templates**
+  - [ ] Fast I/O template
+  - [ ] Debugging utilities
+  - [ ] Contest template with common includes and macros
+  - [ ] Code snippets for common tasks
 
-[TryOmar](https://codeforces.com/profile/TryOmar) - Omar Abbas
+- **Notes**
+  - [ ] Common edge cases
+  - [ ] Contest strategies
+  - [ ] Problem-solving approaches
+  - [ ] Time complexity cheat sheet
+  - [ ] Memory usage optimization
+  - [ ] Implementation tricks
+  - [ ] Binary search applications
+  - [ ] Two pointers technique
+  - [ ] Meet in the Middle
+  - [ ] Interactive problems approach
+  - [ ] Randomized algorithms
+  - [ ] Heuristics
 
-## 📄 License
+## 📲 Contact
 
-Feel free to use these implementations in your own competitive programming journey. 
+- LinkedIn: [in/omar7001](https://www.linkedin.com/in/omar7001/)
+- LeetCode: [benjami4n](https://leetcode.com/u/benjami4n/)
+- CodeForces: [TryOmar](https://codeforces.com/profile/TryOmar)
+- MonkeyType: [TryOmar](https://monkeytype.com/profile/TryOmar) 
