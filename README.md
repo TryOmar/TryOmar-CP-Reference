@@ -13,8 +13,7 @@ This repository serves as a personal reference for competitive programming conte
 - [Disjoint Set Union (DSU)](data_structures/dsu.md)
 
 ### Graph Algorithms
-- [DFS (Recursive)](graph/dfs.md)
-- [DFS (Iterative)](graph/dfs_iterative.md)
+- [DFS](graph/dfs.md)
 - [BFS](graph/bfs.md)
 - [Dijkstra's Algorithm](graph/dijkstra.md)
 - [Floyd-Warshall Algorithm](graph/floyd_warshall.md)
