@@ -5,12 +5,10 @@
 ## ✅ Permutations Without Duplicates
 
 ```cpp
-#include <iostream>
 #include <vector>
 using namespace std;
 
-int main() {
-    vector<int> nums = {1, 2, 3};
+vector<vector<int>> permuteUnique(vector<int>& nums) {
     vector<vector<int>> result;
     vector<int> comb;
     vector<bool> visited(nums.size(), false);
@@ -31,13 +29,7 @@ int main() {
     };
 
     permute();
-
-    for (auto& p : result) {
-        for (int num : p) cout << num << " ";
-        cout << endl;
-    }
-
-    return 0;
+    return result;
 }
 ```
 
@@ -46,13 +38,11 @@ int main() {
 ## ✅ Permutations With Duplicates (using Unordered Map)
 
 ```cpp
-#include <iostream>
 #include <vector>
 #include <unordered_map>
 using namespace std;
 
-int main() {
-    vector<int> nums = {1, 1, 2};
+vector<vector<int>> permuteWithDuplicates(vector<int>& nums) {
     vector<vector<int>> result;
     unordered_map<int, int> counter;
     for (int num : nums) counter[num]++;
@@ -77,13 +67,7 @@ int main() {
     };
 
     permute();
-
-    for (auto& p : result) {
-        for (int num : p) cout << num << " ";
-        cout << endl;
-    }
-
-    return 0;
+    return result;
 }
 ```
 

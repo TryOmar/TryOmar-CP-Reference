@@ -5,36 +5,27 @@
 ## ✅ Combinations of Size K
 
 ```cpp
-#include <iostream>
 #include <vector>
 using namespace std;
 
-int main() {
-    vector<int> nums = {1, 2, 3};
-    int k = 2;
+vector<vector<int>> combine(vector<int>& nums, int k) {
     vector<vector<int>> result;
     vector<int> comb;
 
-    function<void(int)> combine = [&](int start) {
+    function<void(int)> dfs = [&](int start) {
         if (comb.size() == k) {
             result.push_back(comb);
             return;
         }
         for (int i = start; i < nums.size(); i++) {
             comb.push_back(nums[i]);
-            combine(i + 1);
+            dfs(i + 1);
             comb.pop_back();
         }
     };
 
-    combine(0);
-
-    for (auto& c : result) {
-        for (int num : c) cout << num << " ";
-        cout << endl;
-    }
-
-    return 0;
+    dfs(0);
+    return result;
 }
 ```
 
