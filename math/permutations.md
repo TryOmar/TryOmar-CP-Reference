@@ -15,7 +15,7 @@ int main() {
     vector<int> comb;
     vector<bool> visited(nums.size(), false);
 
-    function<void()> backtrack = [&]() {
+    function<void()> permute = [&]() {
         if (comb.size() == nums.size()) {
             result.push_back(comb);
             return;
@@ -24,13 +24,13 @@ int main() {
             if (visited[i]) continue;
             visited[i] = true;
             comb.push_back(nums[i]);
-            backtrack();
+            permute();
             comb.pop_back();
             visited[i] = false;
         }
     };
 
-    backtrack();
+    permute();
 
     for (auto& p : result) {
         for (int num : p) cout << num << " ";
@@ -59,7 +59,7 @@ int main() {
 
     vector<int> comb;
 
-    function<void()> backtrack = [&]() {
+    function<void()> permute = [&]() {
         if (comb.size() == nums.size()) {
             result.push_back(comb);
             return;
@@ -70,13 +70,13 @@ int main() {
             if (count == 0) continue;
             comb.push_back(num);
             counter[num]--;
-            backtrack();
+            permute();
             comb.pop_back();
             counter[num]++;
         }
     };
 
-    backtrack();
+    permute();
 
     for (auto& p : result) {
         for (int num : p) cout << num << " ";
