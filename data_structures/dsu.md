@@ -16,9 +16,10 @@ struct DSU {
 
     DSU(int n) {
         parent.resize(n);
-        size.resize(n, 1);
+        size.resize(n);
         for (int i = 0; i < n; i++) {
             parent[i] = i;
+            size[i] = 1;
         }
     }
 
