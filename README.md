@@ -30,7 +30,7 @@ This repository serves as a personal reference for competitive programming conte
   - [ ] Bellman-Ford Algorithm
   - [ ] Floyd-Warshall Algorithm
   - [ ] Minimum Spanning Tree (Kruskal/Prim)
-  - [ ] Topological Sort
+  - [x] Topological Sort (Kahn's Algorithm)
   - [ ] Strongly Connected Components (Kosaraju/Tarjan)
   - [ ] Articulation Points and Bridges
   - [ ] Biconnected Components
