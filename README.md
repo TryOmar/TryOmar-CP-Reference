@@ -27,6 +27,7 @@ This repository serves as a personal reference for competitive programming conte
 
 ### Math
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
+- [GCD and LCM](math/gcd_lcm.md)
 
 ## 📝 Implementation Progress
 
@@ -78,6 +79,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Segmented Sieve
 - [ ] Prime Factorization
 - [ ] Modular Arithmetic
+- [x] GCD and LCM
 - [ ] Extended Euclidean Algorithm
 - [ ] Chinese Remainder Theorem
 - [ ] Euler's Totient Function
