@@ -6,118 +6,158 @@ A curated collection of algorithms, data structures, and templates for competiti
 
 This repository serves as a personal reference for competitive programming contests, providing organized and reusable code templates for common algorithms and data structures.
 
+## 📚 Implemented Algorithms
+
+### Data Structures
+- [Segment Tree (Iterative)](data_structures/segment_tree_iterative.md)
+- [Disjoint Set Union (DSU)](data_structures/dsu.md)
+
+### Graph Algorithms
+- [DFS (Recursive)](graph/dfs.md)
+- [DFS (Iterative)](graph/dfs_iterative.md)
+- [BFS](graph/bfs.md)
+- [Dijkstra's Algorithm](graph/dijkstra.md)
+- [Floyd-Warshall Algorithm](graph/floyd_warshall.md)
+- [Topological Sort (Kahn's Algorithm)](graph/kahns_algorithm.md)
+- [Path Finding](graph/path_finding.md)
+- [Cycle Detection](graph/cycle_detection.md)
+
 ## 📝 Implementation Progress
 
-- **Data Structures**
-  - [x] Segment Tree (Iterative)
-  - [x] Disjoint Set Union (DSU)
-  - [ ] Fenwick Tree / Binary Indexed Tree
-  - [ ] Sparse Table
-  - [ ] Treap
-  - [ ] Persistent Segment Tree
-  - [ ] Implicit Segment Tree
-  - [ ] Sqrt Decomposition
-  - [ ] Mo's Algorithm
-  - [ ] Heavy-Light Decomposition
-  - [ ] Wavelet Tree
-  - [ ] Lazy Propagation Segment Tree
-  - [ ] 2D Data Structures
-  - [ ] Policy-Based Data Structures (C++)
+<details>
+<summary><b>Data Structures</b></summary>
 
-- **Graph Algorithms**
-  - [x] BFS / DFS
-  - [x] Dijkstra's Algorithm
-  - [ ] Bellman-Ford Algorithm
-  - [x] Floyd-Warshall Algorithm
-  - [ ] Minimum Spanning Tree (Kruskal/Prim)
-  - [x] Topological Sort (Kahn's Algorithm)
-  - [ ] Strongly Connected Components (Kosaraju/Tarjan)
-  - [ ] Articulation Points and Bridges
-  - [ ] Biconnected Components
-  - [ ] Euler Path/Circuit
-  - [ ] Maximum Flow (Ford-Fulkerson, Dinic, Push-Relabel)
-  - [ ] Minimum Cost Maximum Flow
-  - [ ] Bipartite Matching
-  - [ ] Hungarian Algorithm
-  - [ ] Lowest Common Ancestor (LCA)
-  - [ ] Centroid Decomposition
+- [x] Segment Tree (Iterative)
+- [x] Disjoint Set Union (DSU)
+- [ ] Fenwick Tree / Binary Indexed Tree
+- [ ] Sparse Table
+- [ ] Treap
+- [ ] Persistent Segment Tree
+- [ ] Implicit Segment Tree
+- [ ] Sqrt Decomposition
+- [ ] Mo's Algorithm
+- [ ] Heavy-Light Decomposition
+- [ ] Wavelet Tree
+- [ ] Lazy Propagation Segment Tree
+- [ ] 2D Data Structures
+- [ ] Policy-Based Data Structures (C++)
+</details>
 
-- **Math**
-  - [ ] Sieve of Eratosthenes
-  - [ ] Linear Sieve
-  - [ ] Segmented Sieve
-  - [ ] Prime Factorization
-  - [ ] Modular Arithmetic
-  - [ ] Extended Euclidean Algorithm
-  - [ ] Chinese Remainder Theorem
-  - [ ] Euler's Totient Function
-  - [ ] Fast Exponentiation
-  - [ ] Matrix Operations
-  - [ ] Matrix Exponentiation
-  - [ ] Gaussian Elimination
-  - [ ] Combinatorics
-  - [ ] Catalan Numbers
-  - [ ] Probability
-  - [ ] Expected Value
-  - [ ] Game Theory
-  - [ ] Nimbers and Grundy Numbers
-  - [ ] Fast Fourier Transform (FFT)
-  - [ ] Number Theoretic Transform (NTT)
+<details>
+<summary><b>Graph Algorithms</b></summary>
 
-- **Strings**
-  - [ ] KMP (Knuth-Morris-Pratt)
-  - [ ] Z-Algorithm
-  - [ ] Rolling Hash
-  - [ ] Rabin-Karp
-  - [ ] Trie
-  - [ ] Suffix Array
-  - [ ] Suffix Tree
-  - [ ] Aho-Corasick
-  - [ ] Manacher's Algorithm
-  - [ ] Palindromic Tree
-  - [ ] Suffix Automaton
+- [x] BFS / DFS
+- [x] Dijkstra's Algorithm
+- [ ] Bellman-Ford Algorithm
+- [x] Floyd-Warshall Algorithm
+- [ ] Minimum Spanning Tree (Kruskal/Prim)
+- [x] Topological Sort (Kahn's Algorithm)
+- [ ] Strongly Connected Components (Kosaraju/Tarjan)
+- [ ] Articulation Points and Bridges
+- [ ] Biconnected Components
+- [ ] Euler Path/Circuit
+- [ ] Maximum Flow (Ford-Fulkerson, Dinic, Push-Relabel)
+- [ ] Minimum Cost Maximum Flow
+- [ ] Bipartite Matching
+- [ ] Hungarian Algorithm
+- [ ] Lowest Common Ancestor (LCA)
+- [ ] Centroid Decomposition
+</details>
 
-- **Geometry**
-  - [ ] Points, Lines, Vectors
-  - [ ] Polygon Area
-  - [ ] Convex Hull
-  - [ ] Line Sweep
-  - [ ] Closest Pair of Points
-  - [ ] Point in Polygon
-  - [ ] Line Intersection
-  - [ ] Circle Intersection
-  - [ ] Rotating Calipers
-  - [ ] Delaunay Triangulation
+<details>
+<summary><b>Math</b></summary>
 
-- **Dynamic Programming**
-  - [ ] Classical Problems
-  - [ ] Optimization Techniques
-  - [ ] Digit DP
-  - [ ] DP on Trees
-  - [ ] DP with Bitmasks
-  - [ ] DP with Convex Hull Trick
-  - [ ] DP with Divide and Conquer
-  - [ ] SOS DP
+- [ ] Sieve of Eratosthenes
+- [ ] Linear Sieve
+- [ ] Segmented Sieve
+- [ ] Prime Factorization
+- [ ] Modular Arithmetic
+- [ ] Extended Euclidean Algorithm
+- [ ] Chinese Remainder Theorem
+- [ ] Euler's Totient Function
+- [ ] Fast Exponentiation
+- [ ] Matrix Operations
+- [ ] Matrix Exponentiation
+- [ ] Gaussian Elimination
+- [ ] Combinatorics
+- [ ] Catalan Numbers
+- [ ] Probability
+- [ ] Expected Value
+- [ ] Game Theory
+- [ ] Nimbers and Grundy Numbers
+- [ ] Fast Fourier Transform (FFT)
+- [ ] Number Theoretic Transform (NTT)
+</details>
 
-- **Templates**
-  - [ ] Fast I/O template
-  - [ ] Debugging utilities
-  - [ ] Contest template with common includes and macros
-  - [ ] Code snippets for common tasks
+<details>
+<summary><b>Strings</b></summary>
 
-- **Notes**
-  - [ ] Common edge cases
-  - [ ] Contest strategies
-  - [ ] Problem-solving approaches
-  - [ ] Time complexity cheat sheet
-  - [ ] Memory usage optimization
-  - [ ] Implementation tricks
-  - [ ] Binary search applications
-  - [ ] Two pointers technique
-  - [ ] Meet in the Middle
-  - [ ] Interactive problems approach
-  - [ ] Randomized algorithms
-  - [ ] Heuristics
+- [ ] KMP (Knuth-Morris-Pratt)
+- [ ] Z-Algorithm
+- [ ] Rolling Hash
+- [ ] Rabin-Karp
+- [ ] Trie
+- [ ] Suffix Array
+- [ ] Suffix Tree
+- [ ] Aho-Corasick
+- [ ] Manacher's Algorithm
+- [ ] Palindromic Tree
+- [ ] Suffix Automaton
+</details>
+
+<details>
+<summary><b>Geometry</b></summary>
+
+- [ ] Points, Lines, Vectors
+- [ ] Polygon Area
+- [ ] Convex Hull
+- [ ] Line Sweep
+- [ ] Closest Pair of Points
+- [ ] Point in Polygon
+- [ ] Line Intersection
+- [ ] Circle Intersection
+- [ ] Rotating Calipers
+- [ ] Delaunay Triangulation
+</details>
+
+<details>
+<summary><b>Dynamic Programming</b></summary>
+
+- [ ] Classical Problems
+- [ ] Optimization Techniques
+- [ ] Digit DP
+- [ ] DP on Trees
+- [ ] DP with Bitmasks
+- [ ] DP with Convex Hull Trick
+- [ ] DP with Divide and Conquer
+- [ ] SOS DP
+</details>
+
+<details>
+<summary><b>Templates</b></summary>
+
+- [ ] Fast I/O template
+- [ ] Debugging utilities
+- [ ] Contest template with common includes and macros
+- [ ] Code snippets for common tasks
+</details>
+
+<details>
+<summary><b>Notes</b></summary>
+
+- [ ] Common edge cases
+- [ ] Contest strategies
+- [ ] Problem-solving approaches
+- [ ] Time complexity cheat sheet
+- [ ] Memory usage optimization
+- [ ] Implementation tricks
+- [ ] Binary search applications
+- [ ] Two pointers technique
+- [ ] Meet in the Middle
+- [ ] Interactive problems approach
+- [ ] Randomized algorithms
+- [ ] Heuristics
+</details>
 
 ## 📲 Contact
 
