@@ -12,7 +12,7 @@
 - [ ] Sparse Table
 
 ## Graph Algorithms
-- [ ] BFS / DFS
+- [x] BFS / DFS
 - [ ] Dijkstra's Algorithm
 - [ ] Minimum Spanning Tree
 - [ ] Topological Sort
