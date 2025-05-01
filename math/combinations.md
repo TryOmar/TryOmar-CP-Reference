@@ -8,23 +8,23 @@
 #include <vector>
 using namespace std;
 
-vector<vector<int>> combine(vector<int>& nums, int k) {
+vector<vector<int>> combinations(vector<int>& nums, int k) {
     vector<vector<int>> result;
     vector<int> comb;
 
-    function<void(int)> dfs = [&](int start) {
+    function<void(int)> combine = [&](int start) {
         if (comb.size() == k) {
             result.push_back(comb);
             return;
         }
         for (int i = start; i < nums.size(); i++) {
             comb.push_back(nums[i]);
-            dfs(i + 1);
+            combine(i + 1);
             comb.pop_back();
         }
     };
 
-    dfs(0);
+    combine(0);
     return result;
 }
 ```
