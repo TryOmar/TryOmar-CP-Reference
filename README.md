@@ -29,6 +29,9 @@ This repository serves as a personal reference for competitive programming conte
 - [Combinations](backtrack/combinations.md)
 - [Subsets](backtrack/subsets.md)
 
+### Dynamic Programming
+- [Longest Increasing Subsequence (LIS)](dynamic_programming/lis.md)
+
 ### Math
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
 - [GCD and LCM](math/gcd_lcm.md)
@@ -137,6 +140,8 @@ This repository serves as a personal reference for competitive programming conte
 <details>
 <summary><b>Dynamic Programming</b></summary>
 
+- [x] Longest Increasing Subsequence (LIS)
+- [ ] Longest Common Subsequence (LCS)
 - [ ] Classical Problems
 - [ ] Optimization Techniques
 - [ ] Digit DP
