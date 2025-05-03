@@ -32,7 +32,8 @@ This repository serves as a personal reference for competitive programming conte
 ### Dynamic Programming
 - Longest Increasing Subsequence (LIS)
   - [Binary Search Approach (O(n log n))](dynamic_programming/lis_binary_search.md)
-  - [Recursive Approach (O(n²))](dynamic_programming/lis_recursive.md)
+  - [Recursive Approach - Version 1 (O(n²))](dynamic_programming/lis_recursive.md)
+  - [Recursive Approach - Version 2 (O(n²))](dynamic_programming/lis_recursive_v2.md)
 
 ### Math
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
