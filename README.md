@@ -30,7 +30,9 @@ This repository serves as a personal reference for competitive programming conte
 - [Subsets](backtrack/subsets.md)
 
 ### Dynamic Programming
-- [Longest Increasing Subsequence (LIS)](dynamic_programming/lis_binary_search.md)
+- Longest Increasing Subsequence (LIS)
+  - [Binary Search Approach (O(n log n))](dynamic_programming/lis_binary_search.md)
+  - [Recursive Approach (O(n²))](dynamic_programming/lis_recursive.md)
 
 ### Math
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
