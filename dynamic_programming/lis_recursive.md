@@ -53,12 +53,14 @@ vector<int> getLIS(const vector<int>& nums) {
     vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
 
     function<int(int, int)> calculateLIS = [&](int cur, int prev) {
-        if (cur == n) return 0;
+        if (cur == n)
+            return 0;
         int i = cur + 1, j = prev + 1;
         int& res = dp[i][j];
-        if (res != -1) return res;
+        if (res != -1)
+            return res;
 
-        if (prev == -1 || nums[cur] > nums[prev]) 
+        if (prev == -1 || nums[cur] > nums[prev])
             res = max(res, 1 + calculateLIS(cur + 1, cur));
 
         res = max(res, calculateLIS(cur + 1, prev));
@@ -70,17 +72,24 @@ vector<int> getLIS(const vector<int>& nums) {
 
     vector<int> lisSeq;
     function<void(int, int)> buildSequence = [&](int cur, int prev) {
-        if (cur == n) return;
+        if (cur == n)
+            return;
+
         int i = cur + 1, j = prev + 1;
-        if ((prev == -1 || nums[cur] > nums[prev]) && dp[i][j] == 1 + dp[i + 1][i]) {
+        int taken = 0;
+
+        if (prev == -1 || nums[cur] > nums[prev])
+            taken = 1 + calculateLIS(cur + 1, cur);
+
+        int not_taken = calculateLIS(cur + 1, prev);
+
+        if ((prev == -1 || nums[cur] > nums[prev]) && taken > not_taken) {
             lisSeq.push_back(nums[cur]);
             buildSequence(cur + 1, cur);
-        } 
-        else {
+        } else {
             buildSequence(cur + 1, prev);
         }
     };
-
     buildSequence(0, -1);
     return lisSeq;
 }
@@ -93,39 +102,58 @@ Alternatively, we can construct the LIS sequence iteratively, avoiding recursion
 ```cpp
 vector<int> getLISIterative(const vector<int>& nums) {
     int n = nums.size();
-    vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
+    vector<vector<int>> dp(n + 2, vector<int>(n + 2, -1));
 
+    // Recursive function to calculate the length of LIS
     function<int(int, int)> calculateLIS = [&](int cur, int prev) {
-        if (cur == n) return 0;
+        if (cur == n)
+            return 0;
+
         int i = cur + 1, j = prev + 1;
         int& res = dp[i][j];
-        if (res != -1) return res;
+        if (res != -1)
+            return res;
 
-        if (prev == -1 || nums[cur] > nums[prev]) 
+        // Initialize res to 0 before using max
+        res = 0;
+
+        // Option 1: Include current element if possible
+        if (prev == -1 || nums[cur] > nums[prev])
             res = max(res, 1 + calculateLIS(cur + 1, cur));
 
+        // Option 2: Skip current element
         res = max(res, calculateLIS(cur + 1, prev));
 
         return res;
     };
 
-    calculateLIS(0, -1);
+    // Calculate the length of LIS and fill the dp table
+    int lisLength = calculateLIS(0, -1);
 
-    vector<int> seq;
-    int cur = 0, prev = -1;
-    while (cur < n) {
-        int i = cur + 1, j = prev + 1;
-        if ((prev == -1 || nums[cur] > nums[prev]) && dp[i][j] == 1 + dp[i + 1][i]) {
-            seq.push_back(nums[cur]);
-            prev = cur;
-            cur++;
+    // Iterative reconstruction of the LIS
+    vector<int> result;
+    int currentIndex = 0;
+    int prevIndex = -1;
+
+    while (result.size() < lisLength && currentIndex < n) {
+        // Get values for taking vs not taking current element
+        int withoutCurrent = calculateLIS(currentIndex + 1, prevIndex);
+        int withCurrent = -1;
+
+        if (prevIndex == -1 || nums[currentIndex] > nums[prevIndex]) {
+            withCurrent = 1 + calculateLIS(currentIndex + 1, currentIndex);
         }
-        else { 
-            cur++;
+
+        // Check if taking current element leads to optimal solution
+        if (withCurrent > withoutCurrent) {
+            result.push_back(nums[currentIndex]);
+            prevIndex = currentIndex;
         }
+
+        currentIndex++;
     }
 
-    return seq;
+    return result;
 }
 ```
 
@@ -150,4 +178,4 @@ vector<int> getLISIterative(const vector<int>& nums) {
 - **Algorithm Analysis**: This recursive approach demonstrates classic dynamic programming principles.
 - **Teaching Tool**: Excellent for understanding memoization and recursion in dynamic programming.
 - **Interview Preparation**: Common technical interview question that tests algorithmic thinking.
-- **Problem Decomposition**: Shows how to break down a complex problem into smaller subproblems. 
+- **Problem Decomposition**: Shows how to break down a complex problem into smaller subproblems.
