@@ -100,7 +100,7 @@ int lis_ending_at(const vector<int>& arr) {
     int n = arr.size(), maxLIS = 0;
     vector<int> dp(n, -1);
 
-    auto lis_to_index = [&](int i) -> int {
+    function<int(int)> lis_to_index = [&](int i) -> int {
         if (dp[i] != -1) return dp[i];
         int len = 1;
         for (int j = 0; j < i; ++j)
@@ -134,7 +134,7 @@ vector<int> lis_ending_at_with_build(const vector<int>& arr) {
     vector<int> dp(n, -1);
     vector<int> seq;
 
-    auto lis_to_index = [&](int i) -> int {
+    function<int(int)> lis_to_index = [&](int i) -> int {
         if (dp[i] != -1) return dp[i];
         int len = 1;
         for (int j = 0; j < i; ++j)
