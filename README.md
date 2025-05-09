@@ -39,6 +39,9 @@ This repository serves as a personal reference for competitive programming conte
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
 - [GCD and LCM](math/gcd_lcm.md)
 
+### Notes
+- [Custom Comparators](notes/custom_comparators.md)
+
 ## 📝 Implementation Progress
 
 <details>
@@ -195,7 +198,7 @@ This repository serves as a personal reference for competitive programming conte
 
 ## 📲 Contact
 
-- LinkedIn: [in/omar7001](https://www.linkedin.com/in/omar7001/)
-- LeetCode: [benjami4n](https://leetcode.com/u/benjami4n/)
+- LinkedIn: [in/TryOmar](https://www.linkedin.com/in/TryOmar/)
+- LeetCode: [TryOmar](https://leetcode.com/u/TryOmar/)
 - CodeForces: [TryOmar](https://codeforces.com/profile/TryOmar)
 - MonkeyType: [TryOmar](https://monkeytype.com/profile/TryOmar) 
