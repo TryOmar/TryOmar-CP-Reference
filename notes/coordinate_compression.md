@@ -169,3 +169,14 @@ for (auto& p : points) {
    - Use reserve() on vectors if you know the approximate size
    - If mapping isn't needed in both directions, consider simpler implementations
    - For tight time constraints, use unordered_map or a flat array if possible 
+
+5. **C++ Template Type Deduction**:
+   - In C++17 and later, you can often omit the template type specification:
+   ```cpp
+   // Instead of explicitly specifying the type:
+   Compress<int> comp(data);
+   
+   // You can let the compiler deduce the type:
+   Compress comp(data);  // Works in C++17+ with class template argument deduction (CTAD)
+   ```
+   - This makes the code cleaner and works because the compiler can deduce the template parameter from the constructor arguments
