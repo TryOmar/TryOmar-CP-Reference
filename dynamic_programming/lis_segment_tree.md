@@ -140,3 +140,58 @@ The segment tree approach uses coordinate compression and maps each value to a p
   - Binary Search: O(N log N) - depends only on array length
   - Segment Tree can handle the "difference constraint" variant more naturally
 - **When to use**: Choose this approach when the range is bounded and/or when additional constraints like the "max difference k" are present 
+
+---
+
+## ✅ LIS with Coordinate Compression (for Large Value Ranges)
+
+When the range of values exceeds practical limits (e.g., numbers up to 10^9), we can use coordinate compression to map the original values to a smaller range based on their relative ordering.
+
+```cpp
+int lengthOfLIS(vector<int>& nums) {
+    // Step 1: Create a copy of the array for compression
+    vector<int> compressed(nums);
+    
+    // Step 2: Sort and remove duplicates
+    sort(compressed.begin(), compressed.end());
+    compressed.erase(unique(compressed.begin(), compressed.end()), compressed.end());
+    
+    // Step 3: Create mapping from original values to compressed indices
+    unordered_map<int, int> value_to_index;
+    for (int i = 0; i < compressed.size(); i++) {
+        value_to_index[compressed[i]] = i;
+    }
+    
+    // Step 4: Use the compressed indices with the segment tree
+    SegmentTree seg(compressed.size());
+    int res = 0;
+    
+    for (auto num : nums) {
+        // Map the original value to its compressed index
+        int idx = value_to_index[num];
+        
+        // Find maximum LIS ending before this value
+        int val = seg.query(0, idx - 1) + 1;
+        res = max(res, val);
+        
+        // Update the segment tree with new LIS length at this position
+        seg.update(idx, val);
+    }
+    
+    return res;
+}
+```
+
+### Coordinate Compression Notes:
+
+- **Purpose**: Maps original values to a compact range [0, distinct_values)
+- **Process**:
+  1. Create a sorted copy of the array with duplicates removed
+  2. Map each original value to its position in the sorted array
+  3. Use these new indices with the segment tree instead of the original values
+- **Benefits**:
+  - Reduces memory usage significantly
+  - Handles arbitrarily large value ranges (even up to 10^9 or higher)
+  - Maintains the correct relative order, which is all that matters for LIS
+- **Example**: If original array is [1000000, 5, 10000, 6, 7, 1000], it gets mapped to [0, 1, 5, 2, 3, 4]
+- **Time Complexity**: O(N log N) for the compression + O(N log K) for the LIS computation where K is the number of distinct values
