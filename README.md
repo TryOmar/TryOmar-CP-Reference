@@ -172,6 +172,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Problem-solving approaches
 - [ ] Time complexity cheat sheet
 - [ ] Memory usage optimization
+- [x] [Custom Comparators](notes/custom_comparators.md)
 - [ ] Implementation tricks
 - [ ] Binary search applications
 - [ ] Two pointers technique
