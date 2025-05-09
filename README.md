@@ -43,6 +43,7 @@ This repository serves as a personal reference for competitive programming conte
 
 ### Notes
 - [Custom Comparators](notes/custom_comparators.md)
+- [Coordinate Compression](notes/coordinate_compression.md)
 
 ## 📝 Implementation Progress
 
