@@ -47,12 +47,13 @@ getline(cin, input);
 vector<int> values = split<int>(input);
 // Now you can use the values vector as needed
 
-// Note: getline can be followed by cin >> n; for reading more input
+// Note: cin >> n; can be before getline for reading more input
 // Example:
-// getline(cin, input);
-// vector<int> vals = split<int>(input);
 // int n;
 // cin >> n;
+// getline(cin, input);
+// vector<int> vals = split<int>(input);
+// This is useful for reading a number, then a line of input.
 ```
 
 ---
