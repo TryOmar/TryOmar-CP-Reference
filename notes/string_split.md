@@ -1,16 +1,16 @@
-# 🔤 String Utilities
+# 🔤 String Split Utility
 
-This file contains utility functions for string manipulation commonly needed in competitive programming.
+This file contains a utility function for splitting strings by a delimiter and converting the tokens to a specific type. The delimiter defaults to a space character (' ').
 
 ---
 
 ## ✅ String Splitting
 
-A template function to split a string by a delimiter and convert the tokens to a specific type.
+A template function to split a string by a delimiter (default: space) and convert the tokens to a specific type.
 
 ```cpp
 template<typename T>
-vector<T> split(const string& line, char delimiter) {
+vector<T> split(const string& line, char delimiter = ' ') {
     vector<T> result;
     stringstream ss(line);
     string token;
@@ -31,12 +31,12 @@ vector<T> split(const string& line, char delimiter) {
 ### Example Usage
 
 ```cpp
-// Split string into integers
+// Split string into integers (default delimiter is space)
 string line = "10 20 30";
-vector<int> ints = split<int>(line, ' ');
+vector<int> ints = split<int>(line);
 // Result: [10, 20, 30]
 
-// Split string into doubles
+// Split string into doubles (specify delimiter)
 string line2 = "3.14,2.71,1.41";
 vector<double> doubles = split<double>(line2, ',');
 // Result: [3.14, 2.71, 1.41]
@@ -60,7 +60,7 @@ vector<double> doubles = split<double>(line2, ',');
 3. **Variations**:
    - For string tokens, you can use a specialized version:
    ```cpp
-   vector<string> split(const string& line, char delimiter) {
+   vector<string> split(const string& line, char delimiter = ' ') {
        vector<string> result;
        stringstream ss(line);
        string token;
