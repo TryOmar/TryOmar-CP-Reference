@@ -50,29 +50,6 @@ int main() {
 Detects a cycle in a directed graph using node states (0: unvisited, 1: visiting, 2: visited).
 
 ```cpp
-bool hasCycleUtil(int node, unordered_map<int, vector<int>>& adj, unordered_map<int, int>& state) {
-    state[node] = 1; // visiting
-    for (int neighbor : adj[node]) {
-        if (state[neighbor] == 0) {
-            if (hasCycleUtil(neighbor, adj, state)) return true;
-        } else if (state[neighbor] == 1) {
-            return true;
-        }
-    }
-    state[node] = 2; // visited
-    return false;
-}
-
-bool hasCycle(unordered_map<int, vector<int>>& adj) {
-    unordered_map<int, int> state;
-    for (const auto& [node, _] : adj) {
-        if (state[node] == 0) {
-            if (hasCycleUtil(node, adj, state)) return true;
-        }
-    }
-    return false;
-}
-
 int n, m;
 cin >> n >> m;
 unordered_map<int, vector<int>> adj;
@@ -81,7 +58,30 @@ for (int i = 0; i < m; ++i) {
     adj[u].push_back(v);
 }
 
-cout << (hasCycle(adj) ? "Cycle Detected" : "No Cycle") << '\n';
+unordered_map<int, int> state;
+
+function<bool(int)> hasCycle = [&](int node) {
+    state[node] = 1; // visiting
+    for (int neighbor : adj[node]) {
+        if (state[neighbor] == 0) {
+            if (hasCycle(neighbor)) return true;
+        } else if (state[neighbor] == 1) {
+            return true;
+        }
+    }
+    state[node] = 2; // visited
+    return false;
+};
+
+bool found = false;
+for (const auto& [node, _] : adj) {
+    if (state[node] == 0 && hasCycle(node)) {
+        found = true;
+        break;
+    }
+}
+
+cout << (found ? "Cycle Detected" : "No Cycle") << '\n';
 ```
 
 ---
