@@ -51,53 +51,8 @@ vector<int> values = split<int>(input);
 // Example:
 // int n;
 // cin >> n;
+// cin.ignore(); // Ignore the leftover newline
 // getline(cin, input);
 // vector<int> vals = split<int>(input);
 // This is useful for reading a number, then a line of input.
 ```
-
----
-
-## 📘 Notes
-
-1. **Type Safety**:
-   - The function skips tokens that cannot be converted to the specified type
-   - Uses stringstream's type conversion which respects C++ type conversion rules
-
-2. **Required Headers**:
-   ```cpp
-   #include <sstream>  // For stringstream
-   #include <vector>   // For vector
-   #include <string>   // For string
-   ```
-
-3. **Variations**:
-   - For string tokens, you can use a specialized version:
-   ```cpp
-   vector<string> split(const string& line, char delimiter = ' ') {
-       vector<string> result;
-       stringstream ss(line);
-       string token;
-       
-       while (getline(ss, token, delimiter)) {
-           result.push_back(token);
-       }
-       
-       return result;
-   }
-   ```
-
-4. **Error Handling**:
-   - The template version ignores tokens that fail conversion
-   - Add error reporting if needed for your specific use case:
-   ```cpp
-   // Add after the convert >> value; line:
-   if (convert.fail()) {
-       cerr << "Failed to convert: " << token << endl;
-   }
-   ```
-
-5. **Performance Tips**:
-   - Pre-allocate result vector space if you know the approximate number of tokens
-   - For heavy use, consider more specialized splitting functions
-   - For competitive programming, this template is a good balance of flexibility and performance 
