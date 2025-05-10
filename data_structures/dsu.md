@@ -69,4 +69,74 @@ int main() {
 
 - **Path Compression**: Ensures the tree remains shallow, speeding up future queries.
 - **Union by Size**: The smaller component is always merged under the larger one to maintain efficiency.
-- **Time Complexity**: Both `findParent` and `merge` operations run in nearly O(1) time, amortized over multiple operations. 
+- **Time Complexity**: Both `findParent` and `merge` operations run in nearly O(1) time, amortized over multiple operations.
+
+---
+
+# Disjoint Set Union (DSU) with unordered_map
+
+A DSU implementation that supports arbitrary (non-contiguous) keys using `unordered_map`. Useful when elements are not 0-based or are strings/large numbers.
+
+---
+
+## 🔧 Code
+
+```cpp
+#include <unordered_map>
+using namespace std;
+
+struct DSUMap {
+    unordered_map<int, int> parent, size;
+
+    void makeSet(int x) {
+        if (!parent.count(x)) {
+            parent[x] = x;
+            size[x] = 1;
+        }
+    }
+
+    int findParent(int x) {
+        makeSet(x);
+        if (parent[x] == x) return x;
+        return parent[x] = findParent(parent[x]);
+    }
+
+    bool sameGroup(int x, int y) {
+        return findParent(x) == findParent(y);
+    }
+
+    void merge(int x, int y) {
+        int rootX = findParent(x);
+        int rootY = findParent(y);
+        if (rootX == rootY) return;
+        if (size[rootX] < size[rootY]) swap(rootX, rootY);
+        parent[rootY] = rootX;
+        size[rootX] += size[rootY];
+    }
+};
+```
+
+---
+
+## 🧪 Example
+
+```cpp
+int main() {
+    DSUMap dsu;
+    dsu.merge(100, 200);
+    dsu.merge(200, 300);
+    dsu.merge(400, 500);
+
+    cout << dsu.sameGroup(100, 300) << "\n"; // 1 (true)
+    cout << dsu.sameGroup(100, 500) << "\n"; // 0 (false)
+}
+```
+
+---
+
+## 📌 Notes
+
+- **Arbitrary Keys**: Works for any integer keys (or can be templated for other types).
+- **Dynamic**: No need to know the set of elements in advance; sets are created on demand.
+- **Performance**: Slightly slower than vector-based DSU due to hash map overhead, but very flexible.
+- **Usage**: Call `merge` or `findParent` directly; `makeSet` is called automatically as needed. 
