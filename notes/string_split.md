@@ -40,6 +40,19 @@ vector<int> ints = split<int>(line);
 string line2 = "3.14,2.71,1.41";
 vector<double> doubles = split<double>(line2, ',');
 // Result: [3.14, 2.71, 1.41]
+
+// Read a line from input and split it
+string input;
+getline(cin, input);
+vector<int> values = split<int>(input);
+// Now you can use the values vector as needed
+
+// Note: getline can be followed by cin >> n; for reading more input
+// Example:
+// getline(cin, input);
+// vector<int> vals = split<int>(input);
+// int n;
+// cin >> n;
 ```
 
 ---
