@@ -90,6 +90,40 @@ int main() {
 
 ---
 
+## ✅ DFS (Directed Graph)
+
+Detects a cycle in a directed graph using node states (0: unvisited, 1: visiting, 2: visited).
+
+```cpp
+int n, m;
+cin >> n >> m;
+unordered_map<int, vector<int>> adj;
+for (int i = 0; i < m; ++i) {
+    int u, v; cin >> u >> v;
+    adj[u].push_back(v);
+}
+
+unordered_map<int, int> state;
+bool hasCycle = false;
+
+function<void(int)> dfs = [&](int node) {
+    state[node] = 1; // visiting
+    for (int neighbor : adj[node]) {
+        if (state[neighbor] == 0) dfs(neighbor);
+        else if (state[neighbor] == 1) hasCycle = true;
+    }
+    state[node] = 2; // visited
+};
+
+for (const auto& [node, _] : adj) {
+    if (state[node] == 0) dfs(node);
+}
+
+cout << (hasCycle ? "Cycle Detected" : "No Cycle") << '\n';
+```
+
+---
+
 ## 💡 Notes
 
 - Works for **undirected graphs** only.
