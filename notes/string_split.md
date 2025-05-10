@@ -56,3 +56,33 @@ vector<int> values = split<int>(input);
 // vector<int> vals = split<int>(input);
 // This is useful for reading a number, then a line of input.
 ```
+
+---
+
+## ✅ Basic String Split (to vector<string>)
+
+A simple function to split a string by a delimiter (default: space) and return a vector of strings.
+
+```cpp
+vector<string> split(const string& line, char delimiter = ' ') {
+    vector<string> result;
+    stringstream ss(line);
+    string token;
+    while (getline(ss, token, delimiter)) {
+        result.push_back(token);
+    }
+    return result;
+}
+```
+
+### Example Usage
+
+```cpp
+string line = "apple orange banana";
+vector<string> words = split(line);
+// Result: ["apple", "orange", "banana"]
+
+string csv = "a,b,c";
+vector<string> letters = split(csv, ',');
+// Result: ["a", "b", "c"]
+```
