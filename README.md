@@ -45,6 +45,7 @@ This repository serves as a personal reference for competitive programming conte
 - [Custom Comparators](notes/custom_comparators.md)
 - [Coordinate Compression](notes/coordinate_compression.md)
 - [String Split](notes/string_split.md)
+- [Binary Conversions](notes/binary_conversions.md)
 
 ## 📝 Implementation Progress
 
@@ -187,6 +188,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Interactive problems approach
 - [ ] Randomized algorithms
 - [ ] Heuristics
+- [x] [Binary Conversions](notes/binary_conversions.md)
 </details>
 
 <details>
