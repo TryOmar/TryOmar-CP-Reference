@@ -4,12 +4,14 @@
 
 ## ✅ Code
 
+#include <cstdint>
+
 ### 1. **Naive Power (Brute Force)**
 
 ```cpp
-int power(int base, int exp) {
-    int result = 1;
-    for (int i = 0; i < exp; i++) {
+int64_t power(int64_t base, int64_t exp) {
+    int64_t result = 1;
+    for (int64_t i = 0; i < exp; i++) {
         result *= base;
     }
     return result;
@@ -19,9 +21,9 @@ int power(int base, int exp) {
 ### 2. **Recursive Exponentiation by Squaring (Without Modulo)**
 
 ```cpp
-int power(int base, int exp) {
+int64_t power(int64_t base, int64_t exp) {
     if (exp == 0) return 1;
-    int half = power(base, exp >> 1);
+    int64_t half = power(base, exp >> 1);
     if (exp & 1) return base * half * half;
     return half * half;
 }
@@ -30,9 +32,9 @@ int power(int base, int exp) {
 ### 3. **Recursive Exponentiation by Squaring (With Modulo)**
 
 ```cpp
-int modPower(int base, int exp, int mod) {
+int64_t modPower(int64_t base, int64_t exp, int64_t mod) {
     if (exp == 0) return 1;
-    int half = modPower(base, exp >> 1, mod);
+    int64_t half = modPower(base, exp >> 1, mod);
     half = (half * half) % mod;
     if (exp & 1) return (half * base) % mod;
     return half;
@@ -42,8 +44,8 @@ int modPower(int base, int exp, int mod) {
 ### 4. **Iterative Exponentiation by Squaring (O(log N))**
 
 ```cpp
-int power(int base, int exp) {
-    int result = 1;
+int64_t power(int64_t base, int64_t exp) {
+    int64_t result = 1;
     while (exp > 0) {
         if (exp & 1) result *= base;
         base *= base;
@@ -56,8 +58,8 @@ int power(int base, int exp) {
 ### 5. **Modular Exponentiation (for large numbers)**
 
 ```cpp
-int modPower(int base, int exp, int mod) {
-    int result = 1;
+int64_t modPower(int64_t base, int64_t exp, int64_t mod) {
+    int64_t result = 1;
     base = base % mod;
     while (exp > 0) {
         if (exp & 1) result = (result * base) % mod;
