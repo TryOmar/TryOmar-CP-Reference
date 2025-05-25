@@ -40,6 +40,7 @@ This repository serves as a personal reference for competitive programming conte
 ### Math
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
 - [GCD and LCM](math/gcd_lcm.md)
+- [Combinatorics](math/combinatorics.md)
 
 ### Notes
 - [Custom Comparators](notes/custom_comparators.md)
@@ -102,10 +103,7 @@ This repository serves as a personal reference for competitive programming conte
 - [ ] Chinese Remainder Theorem
 - [ ] Euler's Totient Function
 - [x] Fast Exponentiation
-- [ ] Matrix Operations
-- [ ] Matrix Exponentiation
-- [ ] Gaussian Elimination
-- [x] Combinatorics
+- [x] [Combinatorics](math/combinatorics.md)
   - [x] Permutations
   - [x] Combinations
 - [ ] Catalan Numbers
