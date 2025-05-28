@@ -48,6 +48,7 @@ This repository serves as a personal reference for competitive programming conte
 - [String Split](notes/string_split.md)
 - [Binary Conversions](notes/binary_conversions.md)
 - [Measuring Function Execution Time](notes/measure_time.md)
+- [Random Number Generator](notes/number_generator.md)
 
 ## 📝 Implementation Progress
 
