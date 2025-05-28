@@ -47,6 +47,7 @@ This repository serves as a personal reference for competitive programming conte
 - [Coordinate Compression](notes/coordinate_compression.md)
 - [String Split](notes/string_split.md)
 - [Binary Conversions](notes/binary_conversions.md)
+- [Measuring Function Execution Time](notes/measure_time.md)
 
 ## 📝 Implementation Progress
 
