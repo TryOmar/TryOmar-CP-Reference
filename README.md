@@ -41,6 +41,7 @@ This repository serves as a personal reference for competitive programming conte
 - [Fast Power (Binary Exponentiation)](math/fast_power.md)
 - [GCD and LCM](math/gcd_lcm.md)
 - [Combinatorics](math/combinatorics.md)
+- [Sieve of Eratosthenes (Prime Sieve)](math/sieve.md)
 
 ### Notes
 - [Custom Comparators](notes/custom_comparators.md)
@@ -95,7 +96,7 @@ This repository serves as a personal reference for competitive programming conte
 <details>
 <summary><b>Math</b></summary>
 
-- [ ] Sieve of Eratosthenes
+- [x] Sieve of Eratosthenes
 - [ ] Linear Sieve
 - [ ] Segmented Sieve
 - [ ] Prime Factorization
