@@ -1,0 +1,546 @@
+\documentclass[11pt,a4paper]{article}
+
+% Essential packages first
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}  % Better font handling
+
+% Basic formatting packages
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+
+% Math and graphics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+% Colors and listings
+\usepackage{xcolor}
+\usepackage{listings}
+
+% Table of contents
+\usepackage{tocloft}
+
+% Hyperref should be last
+\usepackage{hyperref}
+\hypersetup{
+    pdftitle={Competitive Programming Reference},
+    pdfauthor={TryOmar},
+    pdfsubject={Competitive Programming Algorithms and Data Structures},
+    pdfkeywords={competitive programming, algorithms, data structures},
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=red
+}
+
+% Page geometry
+\geometry{
+    paper=a4paper,
+    left=2cm,
+    right=2cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    headheight=15pt,
+    includehead,
+    includefoot
+}
+
+% Code listing setup
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=t,
+    backgroundcolor=\color{gray!10},
+    aboveskip=2em,
+    belowskip=2em
+}
+
+% Remove listing prefix from captions
+\renewcommand{\lstlistingname}{}
+\renewcommand{\lstlistlistingname}{}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{Competitive Programming Reference}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Title formatting
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Table of contents setup
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalsize}
+
+\begin{document}
+
+% Title page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries Competitive Programming Reference\par}
+    \vspace{1cm}
+    
+    {\Large TryOmar's Algorithm Collection\par}
+    \vspace{2cm}
+    
+    {\large A comprehensive collection of algorithms, data structures, and templates\par}
+    \vspace{1cm}
+    
+    {\large \today\par}
+    
+    \vfill
+    
+    {\large \textsc{Generated from Markdown Reference}\par}
+\end{titlepage}
+
+% Table of contents
+\tableofcontents
+\newpage
+
+% Introduction
+\section{Introduction}
+This document contains a comprehensive collection of algorithms, data structures, and templates for competitive programming. Each section includes implementation details, time complexity analysis, and usage examples.
+
+\subsection{How to Use This Reference}
+\begin{itemize}
+    \item \textbf{Code Templates}: Ready-to-use implementations
+    \item \textbf{Complexity Analysis}: Time and space complexity for each algorithm
+    \item \textbf{Usage Examples}: Practical examples and edge cases
+    \item \textbf{Notes}: Important implementation details and optimizations
+\end{itemize}
+
+\vspace{1cm}
+
+\newpage
+
+\section{Data Structures}
+
+\subsection{STL Basics}
+This section covers the essential C++ Standard Template Library (STL) data structures commonly used in competitive programming.
+
+\subsubsection{Important STL Concepts}
+
+\begin{itemize}
+\item \textbf{Containers}: Data structures that hold objects (vector, set, map, etc.)
+\item \textbf{Iterators}: Objects that point to elements in containers
+\item \textbf{Algorithms}: Functions that operate on containers (sort, find, etc.)
+\item \textbf{Function Objects}: Objects that can be called like functions
+\item \textbf{Allocators}: Manage memory allocation for containers
+\end{itemize}
+
+\subsubsection{Common STL Operations}
+\begin{itemize}
+\item \textbf{Insertion}: \texttt{insert()}, \texttt{push\_back()}, \texttt{emplace()}
+\item \textbf{Deletion}: \texttt{erase()}, \texttt{pop\_back()}, \texttt{clear()}
+\item \textbf{Access}: \texttt{at()}, \texttt{operator[]}, \texttt{front()}, \texttt{back()}
+\item \textbf{Size}: \texttt{size()}, \texttt{empty()}, \texttt{capacity()}
+\item \textbf{Iteration}: Range-based for loops, iterators, \texttt{begin()}, \texttt{end()}
+\end{itemize}
+
+\subsubsection{Performance Considerations}
+\begin{itemize}
+\item \textbf{Vector}: O(1) amortized insertion at end, O(n) insertion in middle
+\item \textbf{Set/Map}: O(log n) for insert, delete, search (Red-Black tree)
+\item \textbf{Unordered Set/Map}: O(1) average case, O(n) worst case (hash table)
+\item \textbf{Stack/Queue}: O(1) for push/pop operations
+\item \textbf{Priority Queue}: O(log n) for push/pop operations
+\end{itemize}
+
+\subsubsection{Memory Management}
+\begin{itemize}
+\item \textbf{Vector}: Automatically grows, use \texttt{reserve()} to pre-allocate
+\item \textbf{Set/Map}: Memory allocated per node, efficient for sparse data
+\item \textbf{Unordered}: Memory allocated in buckets, good for dense data
+\item \textbf{Stack/Queue}: Memory allocated as needed, efficient for LIFO/FIFO
+\end{itemize}
+
+\newpage
+
+\subsubsection{Vectors and Arrays}
+
+\begin{lstlisting}[caption={Basic Vector Operations}]
+// Vector initialization
+vector<int> v;                // Empty vector
+vector<int> v(5);            // Size 5, initialized with 0s
+vector<int> v(5, 2);         // Size 5, initialized with 2s
+vector<int> v = {1, 2, 3};   // Direct initialization
+
+// Basic operations
+v.push_back(4);              // Add element to end
+v.pop_back();                // Remove last element
+v.size();                    // Get current size
+v.empty();                   // Check if empty
+v.front();                   // First element
+v.back();                    // Last element
+v.clear();                   // Remove all elements
+
+// Access and iteration
+for(int i = 0; i < v.size(); i++) {
+    cout << v[i] << " ";     // Using index
+}
+for(int x : v) {             // Range-based for loop
+    cout << x << " ";
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={2D Vector Operations}]
+// 2D vector initialization
+vector<vector<int>> grid(n, vector<int>(m));    // n x m grid
+vector<vector<int>> grid = {                    // Direct init
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+// Access elements
+grid[i][j] = value;          // Set value
+int value = grid[i][j];      // Get value
+
+// Common operations
+for(int i = 0; i < grid.size(); i++) {
+    for(int j = 0; j < grid[i].size(); j++) {
+        cout << grid[i][j] << " ";
+    }
+    cout << "\n";
+}
+\end{lstlisting}
+
+\subsubsection{Sets and Maps}
+
+\begin{lstlisting}[caption={Set and Unordered Set}]
+// Set (ordered)
+set<int> s;                  // Ordered unique elements
+s.insert(5);                 // O(log n) insertion
+s.erase(5);                 // O(log n) deletion
+auto it = s.find(5);        // O(log n) search
+auto it = s.lower_bound(5); // First element >= 5
+auto it = s.upper_bound(5); // First element > 5
+
+// Unordered Set (hash table)
+unordered_set<int> us;      // Unordered unique elements
+us.insert(5);               // O(1) average case
+us.erase(5);               // O(1) average case
+auto it = us.find(5);      // O(1) average case
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Map and Unordered Map}]
+// Map (ordered)
+map<string, int> m;         // Key-value pairs
+m["apple"] = 5;             // O(log n) insertion
+m.erase("apple");          // O(log n) deletion
+auto it = m.find("apple"); // O(log n) search
+
+// Unordered Map (hash table)
+unordered_map<string, int> um; // Hash table
+um["apple"] = 5;              // O(1) average case
+um.erase("apple");           // O(1) average case
+auto it = um.find("apple");  // O(1) average case
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Multiset and Multimap Operations}]
+// Multiset (allows duplicates)
+multiset<int> ms;
+ms.insert(5);               // Can insert multiple 5s
+ms.erase(5);               // Erases all 5s
+ms.erase(ms.find(5));      // Erases one occurrence
+
+// Multimap (multiple values per key)
+multimap<string, int> mm;
+mm.insert({"key", 1});
+mm.insert({"key", 2});     // Same key, different value
+auto range = mm.equal_range("key"); // Get all values
+\end{lstlisting}
+
+\subsubsection{Priority Queue and Heaps}
+Priority queues in C++ use comparators with reversed logic. By default, \texttt{priority\_queue<int>} creates a max-heap.
+
+\begin{lstlisting}[caption={Basic Priority Queue}]
+// Max heap (default)
+priority_queue<int> maxHeap;
+// Min heap using greater<int>
+priority_queue<int, vector<int>, greater<int>> minHeap;
+// Custom comparator for complex types
+struct Compare {
+    bool operator()(const Point& a, const Point& b) {
+        // Note: reversed logic compared to set/map
+        if (a.x != b.x) return a.x > b.x;
+        return a.y > b.y;
+    }
+};
+priority_queue<Point, vector<Point>, Compare> pq;
+\end{lstlisting}
+
+
+
+\subsubsection{Stack and Queue}
+\begin{lstlisting}[caption={Stack and Queue Operations}]
+// Stack (LIFO)
+stack<int> s;
+s.push(5);                  // Add element
+s.pop();                    // Remove top element
+s.top();                    // Access top element
+s.empty();                  // Check if empty
+s.size();                   // Get size
+// Queue (FIFO)
+queue<int> q;
+q.push(5);                  // Add element
+q.pop();                    // Remove front element
+q.front();                  // Access front element
+q.back();                   // Access back element
+q.empty();                  // Check if empty
+q.size();                   // Get size
+// Deque (double-ended queue)
+deque<int> dq;
+dq.push_front(5);           // Add to front
+dq.push_back(5);            // Add to back
+dq.pop_front();             // Remove from front
+dq.pop_back();              // Remove from back
+dq.front();                 // Access front
+dq.back();                  // Access back
+\end{lstlisting}
+
+\newpage
+
+\subsubsection{Bitset}
+Bitset provides space-efficient storage for boolean values.
+
+\begin{lstlisting}[caption={Bitset Operations}]
+// Bitset initialization
+bitset<32> bs;              // 32-bit bitset
+bitset<32> bs("1010");      // From binary string
+bitset<32> bs(42);          // From integer
+
+// Basic operations
+bs.set(5);                  // Set bit at position 5
+bs.reset(5);                // Reset bit at position 5
+bs.flip(5);                 // Flip bit at position 5
+bs.test(5);                 // Check if bit is set
+bs.count();                 // Count set bits
+bs.size();                  // Total number of bits
+
+// Bitwise operations
+bitset<32> a("1010"), b("1100");
+auto c = a & b;             // AND
+auto d = a | b;             // OR
+auto e = a ^ b;             // XOR
+auto f = ~a;                // NOT
+
+// Useful for competitive programming
+bs.set();                   // Set all bits
+bs.reset();                 // Reset all bits
+bs.flip();                  // Flip all bits
+\end{lstlisting}
+
+\newpage
+
+\subsection{Advanced Data Structures}
+
+\subsubsection{Segment Tree (Iterative)}
+Efficient range query data structure supporting point updates and range queries.
+
+\begin{lstlisting}[caption={Segment Tree for Range Sum}]
+struct SegmentTree {
+    int n;
+    vector<int> tree;
+
+    SegmentTree(const vector<int>& v) {
+        n = v.size();
+        tree.resize(n << 1);
+        for (int i = 0; i < n; i++)
+            tree[i + n] = v[i];
+        for (int i = n - 1; i > 0; i--)
+            tree[i] = tree[i << 1] + tree[i << 1 | 1];
+    }
+
+    void update(int pos, int value) {
+        tree[pos += n] = value;
+        for (pos >>= 1; pos > 0; pos >>= 1)
+            tree[pos] = tree[pos << 1] + tree[pos << 1 | 1];
+    }
+
+    int query(int l, int r) { // inclusive range [l, r]
+        int res = 0;
+        for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) res += tree[l++];
+            if (r & 1) res += tree[--r];
+        }
+        return res;
+    }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Segment Tree Example Usage}]
+int main() {
+    vector<int> a = {2, 1, 5, 3, 4};
+    SegmentTree st(a);
+
+    cout << st.query(1, 3) << "\n"; // 1 + 5 + 3 = 9
+    st.update(2, 0);                // a[2] = 0
+    cout << st.query(1, 3) << "\n"; // 1 + 0 + 3 = 4
+}
+\end{lstlisting}
+
+\newpage
+\begin{lstlisting}[caption={Segment Tree for Range Maximum}]
+struct SegmentTree {
+    int n;
+    vector<int> tree;
+
+    SegmentTree(const vector<int>& v) {
+        n = v.size();
+        tree.resize(n << 1);
+        for (int i = 0; i < n; i++)
+            tree[i + n] = v[i];
+        for (int i = n - 1; i > 0; i--)
+            tree[i] = max(tree[i << 1], tree[i << 1 | 1]);
+    }
+
+    void update(int pos, int value) {
+        tree[pos += n] = value;
+        for (pos >>= 1; pos > 0; pos >>= 1)
+            tree[pos] = max(tree[pos << 1], tree[pos << 1 | 1]);
+    }
+
+    int query(int l, int r) { // inclusive range [l, r]
+        int res = INT_MIN;
+        for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) res = max(res, tree[l++]);
+            if (r & 1) res = max(res, tree[--r]);
+        }
+        return res;
+    }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Segment Tree Max Example Usage}]
+int main() {
+    vector<int> a = {2, 1, 5, 3, 4};
+    SegmentTree st(a);
+
+    cout << st.query(1, 3) << "\n"; // max(1, 5, 3) = 5
+    st.update(2, 0);                // a[2] = 0
+    cout << st.query(1, 3) << "\n"; // max(1, 0, 3) = 3
+}
+\end{lstlisting}
+
+\newpage
+
+\subsubsection{Disjoint Set Union (DSU)}
+Optimized union-find data structure with path compression and union by size.
+
+\begin{lstlisting}[caption={DSU with Vector}]
+struct DSU {
+    vector<int> parent, size;
+
+    DSU(int n) {
+        parent.resize(n);
+        size.resize(n);
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+    }
+
+    int findParent(int x) {
+        if (parent[x] == x) return x;
+        return parent[x] = findParent(parent[x]);
+    }
+
+    bool sameGroup(int x, int y) {
+        return findParent(x) == findParent(y);
+    }
+
+    void merge(int x, int y) {
+        int rootX = findParent(x);
+        int rootY = findParent(y);
+        if (rootX == rootY) return;
+        if (size[rootX] < size[rootY]) swap(rootX, rootY);
+        parent[rootY] = rootX;
+        size[rootX] += size[rootY];
+    }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={DSU Example Usage}]
+int main() {
+    DSU dsu(10);
+
+    dsu.merge(1, 2);
+    dsu.merge(2, 3);
+    dsu.merge(4, 5);
+
+    cout << (dsu.sameGroup(1, 3)) << "\n";  // 1 (true)
+    cout << (dsu.sameGroup(1, 5)) << "\n";  // 0 (false)
+}
+\end{lstlisting}
+
+\newpage
+\begin{lstlisting}[caption={DSU with Unordered Map}]
+struct DSUMap {
+    unordered_map<int, int> parent, size;
+
+    void makeSet(int x) {
+        if (!parent.count(x)) {
+            parent[x] = x;
+            size[x] = 1;
+        }
+    }
+
+    int findParent(int x) {
+        makeSet(x);
+        if (parent[x] == x) return x;
+        return parent[x] = findParent(parent[x]);
+    }
+
+    bool sameGroup(int x, int y) {
+        return findParent(x) == findParent(y);
+    }
+
+    void merge(int x, int y) {
+        int rootX = findParent(x);
+        int rootY = findParent(y);
+        if (rootX == rootY) return;
+        if (size[rootX] < size[rootY]) swap(rootX, rootY);
+        parent[rootY] = rootX;
+        size[rootX] += size[rootY];
+    }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={DSU Map Example Usage}]
+int main() {
+    DSUMap dsu;
+    dsu.merge(100, 200);
+    dsu.merge(200, 300);
+    dsu.merge(400, 500);
+
+    cout << dsu.sameGroup(100, 300) << "\n"; // 1 (true)
+    cout << dsu.sameGroup(100, 500) << "\n"; // 0 (false)
+}
+\end{lstlisting}
+
+
+
+\end{document}

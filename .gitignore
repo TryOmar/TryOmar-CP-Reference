@@ -1,0 +1,31 @@
+# LaTeX auxiliary files
+*.log
+*.aux
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Ignore all files except index.tex and index.pdf
+*
+!index.tex
+!index.pdf
+!.gitignore
+!structure.md
+!README.md
+!PROGRESS.md
+!requirements.md
+
+# Allow data_structures directory
+!data_structures/
+!data_structures/* 
