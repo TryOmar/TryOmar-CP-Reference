@@ -28,13 +28,13 @@
 - [x] Disjoint Set Union (DSU)
 
 ## Graph Algorithms
-- [ ] Depth-First Search (DFS)
-- [ ] Breadth-First Search (BFS)
-- [ ] Dijkstra's Algorithm
-- [ ] Floyd-Warshall Algorithm
-- [ ] Topological Sort
-- [ ] Path Finding
-- [ ] Cycle Detection
+- [x] Depth-First Search (DFS)
+- [x] Breadth-First Search (BFS)
+- [x] Dijkstra's Algorithm
+- [x] Floyd-Warshall Algorithm
+- [x] Topological Sort
+- [x] Path Finding
+- [x] Cycle Detection
 
 ## String Algorithms
 - [ ] Trie (Prefix Tree)
@@ -47,6 +47,6 @@
 
 ---
 **Progress Summary:**
-- ✅ Completed: Introduction, Data Structures (STL Basics + Advanced)
-- 🔄 Next Up: Graph Algorithms
+- ✅ Completed: Introduction, Data Structures (STL Basics + Advanced), Graph Algorithms
+- 🔄 Next Up: String Algorithms
 - 📝 Implementation Order: Top to bottom, focusing on fundamentals first

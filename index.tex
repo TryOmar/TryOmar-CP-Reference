@@ -543,4 +543,499 @@ int main() {
 
 
 
+\section{Graph Algorithms}
+
+\subsection{Depth-First Search (DFS)}
+Depth-First Search is a graph traversal algorithm that explores as far as possible along each branch before backtracking.
+
+\begin{lstlisting}[caption={DFS Implementation}]
+vector<vector<int>> graph;  // Adjacency list
+vector<bool> visited;
+
+void dfs(int node) {
+    visited[node] = true;
+    cout << node << " ";  // Process node
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor);
+        }
+    }
+}
+
+// Initialize and run DFS
+void runDFS(int start, int n) {
+    graph.resize(n);
+    visited.resize(n, false);
+    dfs(start);
+}
+\end{lstlisting}
+
+\subsubsection{DFS Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(V + E) where V = vertices, E = edges
+\item \textbf{Space Complexity}: O(V) for recursion stack
+\item \textbf{Use Cases}: Exploring all possibilities, backtracking, connected components
+\item \textbf{Recursive Nature}: Uses recursion, can cause stack overflow for very deep graphs
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={DFS with Connected Components}]
+vector<vector<int>> graph;
+vector<bool> visited;
+
+void dfs(int node) {
+    visited[node] = true;
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor);
+        }
+    }
+}
+
+int countComponents(int n) {
+    visited.resize(n, false);
+    int components = 0;
+    
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            dfs(i);
+            components++;
+        }
+    }
+    return components;
+}
+\end{lstlisting}
+
+\subsubsection{Connected Components Notes}
+\begin{itemize}
+\item \textbf{Application}: Finding number of disconnected subgraphs
+\item \textbf{Algorithm}: Run DFS from each unvisited node
+\item \textbf{Result}: Each DFS call discovers one connected component
+\item \textbf{Complexity}: Still O(V + E) as each node/edge visited once
+\end{itemize}
+
+\newpage
+\subsection{Breadth-First Search (BFS)}
+Breadth-First Search explores all vertices at the present depth before moving to vertices at the next depth level.
+
+\begin{lstlisting}[caption={BFS Implementation}]
+vector<vector<int>> graph;  // Adjacency list
+vector<bool> visited;
+
+void bfs(int start) {
+    queue<int> q;
+    q.push(start);
+    visited[start] = true;
+    
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        cout << node << " ";  // Process node
+        
+        for (int neighbor : graph[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                q.push(neighbor);
+            }
+        }
+    }
+}
+
+// Initialize and run BFS
+void runBFS(int start, int n) {
+    graph.resize(n);
+    visited.resize(n, false);
+    bfs(start);
+}
+\end{lstlisting}
+
+\subsubsection{BFS Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(V + E) where V = vertices, E = edges
+\item \textbf{Space Complexity}: O(V) for queue
+\item \textbf{Use Cases}: Shortest path in unweighted graphs, level-order traversal
+\item \textbf{Queue-based}: Uses queue, explores level by level
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={BFS with Distance Calculation}]
+vector<vector<int>> graph;
+vector<int> distance;
+
+void bfsWithDistance(int start, int n) {
+    queue<int> q;
+    distance.resize(n, -1);
+    
+    q.push(start);
+    distance[start] = 0;
+    
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        
+        for (int neighbor : graph[node]) {
+            if (distance[neighbor] == -1) {
+                distance[neighbor] = distance[node] + 1;
+                q.push(neighbor);
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Distance BFS Notes}
+\begin{itemize}
+\item \textbf{Shortest Path}: Guarantees shortest path in unweighted graphs
+\item \textbf{Distance Array}: Stores minimum distance from start to each node
+\item \textbf{Level Order}: Nodes at same distance processed together
+\item \textbf{Application}: Network routing, social network analysis
+\end{itemize}
+
+\newpage
+\subsection{Dijkstra's Algorithm}
+Dijkstra's algorithm finds the shortest path from a source vertex to all other vertices in a weighted graph.
+
+\begin{lstlisting}[caption={Dijkstra's Algorithm}]
+vector<vector<pair<int, int>>> graph;  // {neighbor, weight}
+vector<int> distance;
+
+void dijkstra(int start, int n) {
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    distance.resize(n, INT_MAX);
+    
+    distance[start] = 0;
+    pq.push({0, start});
+    
+    while (!pq.empty()) {
+        int dist = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+        
+        if (dist > distance[node]) continue;
+        
+        for (auto [neighbor, weight] : graph[node]) {
+            if (distance[node] + weight < distance[neighbor]) {
+                distance[neighbor] = distance[node] + weight;
+                pq.push({distance[neighbor], neighbor});
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Dijkstra Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O((V + E) log V) with priority queue
+\item \textbf{Space Complexity}: O(V) for distance array and priority queue
+\item \textbf{Requirement}: All edge weights must be non-negative
+\item \textbf{Greedy Algorithm}: Always picks the closest unvisited node
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Dijkstra with Path Reconstruction}]
+vector<vector<pair<int, int>>> graph;
+vector<int> distance, parent;
+
+void dijkstraWithPath(int start, int n) {
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    distance.resize(n, INT_MAX);
+    parent.resize(n, -1);
+    
+    distance[start] = 0;
+    pq.push({0, start});
+    
+    while (!pq.empty()) {
+        int dist = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+        
+        if (dist > distance[node]) continue;
+        
+        for (auto [neighbor, weight] : graph[node]) {
+            if (distance[node] + weight < distance[neighbor]) {
+                distance[neighbor] = distance[node] + weight;
+                parent[neighbor] = node;
+                pq.push({distance[neighbor], neighbor});
+            }
+        }
+    }
+}
+
+vector<int> getPath(int end) {
+    vector<int> path;
+    for (int node = end; node != -1; node = parent[node]) {
+        path.push_back(node);
+    }
+    reverse(path.begin(), path.end());
+    return path;
+}
+\end{lstlisting}
+
+\subsubsection{Path Reconstruction Notes}
+\begin{itemize}
+\item \textbf{Parent Array}: Stores predecessor of each node in shortest path
+\item \textbf{Path Recovery}: Backtrack from destination to source
+\item \textbf{Reverse Order}: Path is built backwards, then reversed
+\item \textbf{Application}: Navigation systems, network routing
+\end{itemize}
+
+\newpage
+
+\subsection{Floyd-Warshall Algorithm}
+Floyd-Warshall finds shortest paths between all pairs of vertices in a weighted graph.
+
+\begin{lstlisting}[caption={Floyd-Warshall Algorithm}]
+vector<vector<int>> dist;  // Distance matrix
+int n;
+
+void floydWarshall() {
+    // Initialize distance matrix
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j) dist[i][j] = 0;
+            else dist[i][j] = INT_MAX;
+        }
+    }
+    
+    // Add edges
+    // dist[u][v] = weight;  // Add your edges here
+    
+    // Floyd-Warshall algorithm
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] != INT_MAX && dist[k][j] != INT_MAX) {
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+                }
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Floyd-Warshall Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(V³) - cubic time complexity
+\item \textbf{Space Complexity}: O(V²) for distance matrix
+\item \textbf{All Pairs}: Finds shortest path between every pair of vertices
+\item \textbf{Handles Negatives}: Can detect negative cycles
+\end{itemize}
+
+\newpage
+\subsection{Topological Sort}
+Topological sort orders vertices in a directed acyclic graph (DAG) so that all edges point forward.
+
+\begin{lstlisting}[caption={Topological Sort with DFS}]
+vector<vector<int>> graph;
+vector<bool> visited;
+vector<int> topoOrder;
+
+void dfs(int node) {
+    visited[node] = true;
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor);
+        }
+    }
+    
+    topoOrder.push_back(node);
+}
+
+vector<int> topologicalSort(int n) {
+    visited.resize(n, false);
+    topoOrder.clear();
+    
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            dfs(i);
+        }
+    }
+    
+    reverse(topoOrder.begin(), topoOrder.end());
+    return topoOrder;
+}
+\end{lstlisting}
+
+\subsubsection{DFS Topological Sort Notes}
+\begin{itemize}
+\item \textbf{Post-order DFS}: Add node after visiting all neighbors
+\item \textbf{Reverse Result}: Final order is reversed DFS post-order
+\item \textbf{Requirement}: Graph must be a DAG (no cycles)
+\item \textbf{Application}: Build order, dependency resolution
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Topological Sort with Kahn's Algorithm}]
+vector<vector<int>> graph;
+vector<int> inDegree;
+
+vector<int> kahnTopologicalSort(int n) {
+    queue<int> q;
+    vector<int> result;
+    
+    // Calculate in-degrees
+    inDegree.resize(n, 0);
+    for (int i = 0; i < n; i++) {
+        for (int neighbor : graph[i]) {
+            inDegree[neighbor]++;
+        }
+    }
+    
+    // Add nodes with in-degree 0
+    for (int i = 0; i < n; i++) {
+        if (inDegree[i] == 0) {
+            q.push(i);
+        }
+    }
+    
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        result.push_back(node);
+        
+        for (int neighbor : graph[node]) {
+            inDegree[neighbor]--;
+            if (inDegree[neighbor] == 0) {
+                q.push(neighbor);
+            }
+        }
+    }
+    
+    return result;
+}
+\end{lstlisting}
+
+\subsubsection{Kahn's Algorithm Notes}
+\begin{itemize}
+\item \textbf{In-degree Tracking}: Count incoming edges for each node
+\item \textbf{Queue-based}: Process nodes with zero in-degree
+\item \textbf{Multiple Orders}: Can have multiple valid topological orders
+\item \textbf{Cycle Detection}: If result size < n, graph has cycle
+\end{itemize}
+
+\newpage
+\subsection{Cycle Detection}
+Detecting cycles in directed and undirected graphs.
+
+\begin{lstlisting}[caption={Cycle Detection in Undirected Graph}]
+vector<vector<int>> graph;
+vector<bool> visited;
+
+bool hasCycleUndirected(int node, int parent) {
+    visited[node] = true;
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            if (hasCycleUndirected(neighbor, node)) {
+                return true;
+            }
+        } else if (neighbor != parent) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool detectCycleUndirected(int n) {
+    visited.resize(n, false);
+    
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            if (hasCycleUndirected(i, -1)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+\end{lstlisting}
+
+\subsubsection{Undirected Cycle Detection Notes}
+\begin{itemize}
+\item \textbf{Parent Tracking}: Avoid revisiting parent node
+\item \textbf{Back Edge}: Cycle if neighbor is visited but not parent
+\item \textbf{DFS-based}: Uses DFS to explore graph
+\item \textbf{Application}: Validating trees, network topology
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Cycle Detection in Directed Graph}]
+vector<vector<int>> graph;
+vector<bool> visited, recStack;
+
+bool hasCycleDirected(int node) {
+    visited[node] = true;
+    recStack[node] = true;
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            if (hasCycleDirected(neighbor)) {
+                return true;
+            }
+        } else if (recStack[neighbor]) {
+            return true;
+        }
+    }
+    
+    recStack[node] = false;
+    return false;
+}
+
+bool detectCycleDirected(int n) {
+    visited.resize(n, false);
+    recStack.resize(n, false);
+    
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            if (hasCycleDirected(i)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+\end{lstlisting}
+
+\subsubsection{Directed Cycle Detection Notes}
+\begin{itemize}
+\item \textbf{Recursion Stack}: Track nodes in current recursion path
+\item \textbf{Back Edge}: Cycle if neighbor is in recursion stack
+\item \textbf{Two Arrays}: visited for all nodes, recStack for current path
+\item \textbf{Application}: Deadlock detection, DAG validation
+\end{itemize}
+
+\newpage
+
+\subsection{Important Notes}
+
+\subsubsection{Graph Representation}
+\begin{itemize}
+\item \textbf{Adjacency List}: Space O(V + E), good for sparse graphs
+\item \textbf{Adjacency Matrix}: Space O(V²), good for dense graphs
+\item \textbf{Edge List}: Space O(E), useful for some algorithms
+\end{itemize}
+
+\subsubsection{Algorithm Complexities}
+\begin{itemize}
+\item \textbf{DFS/BFS}: Time O(V + E), Space O(V)
+\item \textbf{Dijkstra}: Time O((V + E) log V), Space O(V)
+\item \textbf{Floyd-Warshall}: Time O(V³), Space O(V²)
+\item \textbf{Topological Sort}: Time O(V + E), Space O(V)
+\item \textbf{Cycle Detection}: Time O(V + E), Space O(V)
+\end{itemize}
+
+\subsubsection{Usage Tips}
+\begin{itemize}
+\item Use DFS for exploring all possibilities, backtracking problems
+\item Use BFS for shortest path in unweighted graphs, level-order traversal
+\item Use Dijkstra for shortest path in weighted graphs with positive weights
+\item Use Floyd-Warshall for all-pairs shortest path or detecting negative cycles
+\item Use Topological Sort for dependency resolution, build order problems
+\item Use Cycle Detection for validating DAGs, detecting deadlocks
+\end{itemize}
+
+
 \end{document}
