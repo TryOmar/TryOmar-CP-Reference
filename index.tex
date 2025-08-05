@@ -1940,13 +1940,6 @@ const int LARGE_N = 10000; // For very large binary strings
 unsigned long long largeDecimal = bitset<LARGE_N>(longBinaryStr).to_ullong();
 \end{lstlisting}
 
-\subsubsection*{Binary to Decimal Notes}
-\begin{itemize}
-\item \textbf{stoll Method}: Limited to 64-bit integers
-\item \textbf{bitset Method}: Can handle larger binary strings
-\item \textbf{Time Complexity}: O(n) where n is binary string length
-\item \textbf{Applications}: Binary arithmetic, bit manipulation
-\end{itemize}
 
 \begin{lstlisting}[caption={Decimal to Binary Conversion}]
 #include <bitset>
@@ -1967,13 +1960,7 @@ string binaryStr = format("{:b}", decimal);
 // Result: "1010"
 \end{lstlisting}
 
-\subsubsection*{Decimal to Binary Notes}
-\begin{itemize}
-\item \textbf{bitset Method}: Most reliable for standard integers
-\item \textbf{format Method}: Clean C++20 approach
-\item \textbf{Leading Zeros}: Need manual handling for clean output
-\item \textbf{Applications}: Binary representation, bit manipulation
-\end{itemize}
+
 
 \newpage
 
@@ -2357,7 +2344,9 @@ struct Point {
     double dot(Point p) { return x * p.x + y * p.y; }
     double cross(Point p) { return x * p.y - y * p.x; }
     double norm() { return sqrt(x * x + y * y); }
-    Point rotate(double a) { return Point(x*cos(a) - y*sin(a), x*sin(a) + y*cos(a)); }
+    Point rotate(double a) { 
+        return Point(x*cos(a) - y*sin(a), x*sin(a) + y*cos(a));
+    }
 };
 
 double dist(Point a, Point b) { return (a - b).norm(); }
@@ -2591,12 +2580,22 @@ struct Point3D {
     double x, y, z;
     Point3D(double x = 0, double y = 0, double z = 0) : x(x), y(y), z(z) {}
     
-    Point3D operator+(Point3D p) { return Point3D(x + p.x, y + p.y, z + p.z); }
-    Point3D operator-(Point3D p) { return Point3D(x - p.x, y - p.y, z - p.z); }
-    Point3D operator*(double t) { return Point3D(x * t, y * t, z * t); }
+    Point3D operator+(Point3D p) { 
+        return Point3D(x + p.x, y + p.y, z + p.z);
+    }
+
+    Point3D operator-(Point3D p) {
+         return Point3D(x - p.x, y - p.y, z - p.z);
+    }
+
+    Point3D operator*(double t) { 
+        return Point3D(x * t, y * t, z * t); 
+    }
     
     double dot(Point3D p) { return x * p.x + y * p.y + z * p.z; }
-    Point3D cross(Point3D p) { return Point3D(y*p.z - z*p.y, z*p.x - x*p.z, x*p.y - y*p.x); }
+    Point3D cross(Point3D p) {
+         return Point3D(y*p.z - z*p.y, z*p.x - x*p.z, x*p.y - y*p.x); 
+    }
     double norm() { return sqrt(x*x + y*y + z*z); }
 };
 
