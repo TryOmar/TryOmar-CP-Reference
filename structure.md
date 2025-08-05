@@ -22,6 +22,8 @@
   - [x] Deque Usage
 - [x] Bitset
   - [x] Operations and Optimizations
+- [x] Bit Manipulation
+- [x] Ordered Set Template
 
 ### Advanced Data Structures
 - [x] Segment Tree (Iterative)
@@ -59,17 +61,29 @@
 - [x] Combinatorics
 - [x] Sieve of Eratosthenes
 
+## Searching Algorithms
+- [x] Binary Search
+- [x] Lower Bound / Upper Bound
+- [x] Ternary Search (Integer & Floating Point)
+
+## Geometry (CP Basics)
+- [x] Points & Vectors
+- [x] Lines & Segments
+- [x] Polygons & Areas
+- [x] Circles and Advanced Geometry
+- [x] 3D Geometry
+
 ## Notes & Utilities
 - [x] Binary Conversions
 - [x] Coordinate Compression
+- [x] Performance Utilities
+- [x] Random Number Generation
+- [x] String Utilities
 - [x] Custom Comparators
-- [x] Measure Time
-- [x] Number Generator
-- [x] String Split
 
 ---
 **Progress Summary:**
-- ✅ Completed: Introduction, Data Structures (STL Basics + Advanced), Graph Algorithms, Dynamic Programming, Backtracking, String Algorithms, Mathematics, Notes & Utilities
+- ✅ Completed: Introduction, Data Structures (STL Basics + Advanced), Graph Algorithms, Dynamic Programming, Backtracking, String Algorithms, Mathematics, Searching Algorithms, Geometry (CP Basics), Notes & Utilities
 - 🎉 All sections completed!
 - 📝 Implementation Order: Top to bottom, focusing on fundamentals first
 
@@ -77,3 +91,6 @@
 - ✅ Dynamic Programming section (LIS variations)
 - ✅ Backtracking section (Subsets, Permutations, Combinations)
 - ✅ Notes & Utilities section (Binary Conversions, Coordinate Compression, etc.)
+- ✅ Searching Algorithms section (Binary Search, Lower/Upper Bound, Ternary Search)
+- ✅ Geometry (CP Basics) section (Mathematical formulas in LaTeX)
+- ✅ Ordered Set Template moved to Data Structures

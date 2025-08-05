@@ -355,6 +355,196 @@ bs.flip();                  // Flip all bits
 
 \newpage
 
+\subsubsection{Bit Manipulation}
+Advanced bit manipulation techniques and tricks for competitive programming.
+
+\begin{lstlisting}[caption={Basic Bit Operations}]
+bool getBit(long long n, int i) { return (n >> i) & 1; }
+long long setBit(long long n, int i) { return n | (1LL << i); }
+long long clearBit(long long n, int i) { return n & ~(1LL << i); }
+long long flipBit(long long n, int i) { return n ^ (1LL << i); }
+long long updateBit(long long n, int i, bool val) {
+     return val ? setBit(n, i) : clearBit(n, i); 
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Bit Tricks}]
+long long rightmostBit(long long n) { return n & -n; }
+long long turnOffRightmost(long long n) { return n & (n - 1); }
+long long turnOnRightmost(long long n) { return n | (n + 1); }
+bool isPowerOfTwo(long long n) { return n > 0 && (n & (n - 1)) == 0; }
+long long fastMod(long long n, long long mod) { return n & (mod - 1); }
+int popcount(long long n) { return __builtin_popcountll(n); }
+int leadingZeros(long long n) { return __builtin_clzll(n); }
+int trailingZeros(long long n) { return __builtin_ctzll(n); }
+int log2Floor(long long n) { return 63 - __builtin_clzll(n); }
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Bitmask Patterns}]
+long long createMask(int n) { return (1LL << n) - 1; }
+long long extractBits(long long n, int i, int j) {
+     return (n >> i) & createMask(j - i + 1); }
+long long setRange(long long n, int i, int j) { 
+    return n | (createMask(j - i + 1) << i); 
+}
+long long clearRange(long long n, int i, int j) { 
+    return n & ~(createMask(j - i + 1) << i); 
+}
+long long swapBits(long long n, int i, int j) {
+    if (getBit(n, i) != getBit(n, j)) n = flipBit(flipBit(n, i), j);
+    return n;
+}
+long long reverseBits(long long n, int bits = 64) {
+    long long result = 0;
+    for (int i = 0; i < bits; i++) 
+        if (getBit(n, i)) result = setBit(result, bits - 1 - i);
+    return result;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[caption={Subset Generation}]
+// Generate all subsets: 
+// for(int mask = 0; mask < (1 << n); mask++)
+// Generate all submasks: 
+// for(int sub = mask; ; sub = (sub - 1) & mask) { if(!sub) break; }
+// Generate k-bit subsets: 
+// if(__builtin_popcount(mask) == k)
+
+long long nextPermutation(long long n) {
+    long long c = n, c0 = 0, c1 = 0;
+    while (((c & 1) == 0) && c != 0) { c0++; c >>= 1; }
+    while ((c & 1) == 1) { c1++; c >>= 1; }
+    if (c0 + c1 >= 31) return -1;
+    
+    long long pos = c0 + c1;
+    n = setBit(n, pos);
+    n = clearBit(n, pos - 1);
+    n = n & (~((1LL << (pos - 1)) - 1));
+    n = n | ((1LL << (c1 - 1)) - 1);
+    return n;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={XOR Range}]
+long long xorRange(long long n) {
+    int mod = n % 4;
+    return mod == 1 ? 1 : mod == 2 ? n + 1 : mod == 3 ? 0 : n;
+}
+
+long long xorRange(long long l, long long r) {
+     return xorRange(r) ^ xorRange(l - 1); 
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Find Two Unique Numbers}]
+pair<int, int> findTwoUnique(vector<int>& arr) {
+    int xorAll = 0;
+    for (int x : arr) xorAll ^= x;
+    int rightmost = xorAll & -xorAll;
+    int x = 0, y = 0;
+    for (int num : arr) {
+        if (num & rightmost) x ^= num;
+        else y ^= num;
+    }
+    return {x, y};
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[caption={Max XOR Subset}]
+int maxXorSubset(vector<int> arr) {
+    for (int bit = 30; bit >= 0; bit--) {
+        int pivot = -1;
+        for (int i = 0; i < arr.size(); i++) {
+            if (getBit(arr[i], bit)) { pivot = i; break; }
+        }
+        if (pivot == -1) continue;
+        
+        swap(arr[0], arr[pivot]);
+        for (int i = 1; i < arr.size(); i++) {
+            if (getBit(arr[i], bit)) arr[i] ^= arr[0];
+        }
+        arr.erase(arr.begin());
+    }
+    int result = 0;
+    for (int x : arr) result ^= x;
+    return result;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Bitmask DP Helpers}]
+
+bool hasAdjacent(int mask, int n) {
+     return (mask & (mask << 1)) || (getBit(mask, 0) && getBit(mask, n - 1)); 
+}
+
+int addIfValid(int mask, int pos, int n) {
+    if ((pos > 0 && getBit(mask, pos - 1)) ||
+       (pos < n - 1 && getBit(mask, pos + 1)) ||
+        (pos == 0 && n > 1 && getBit(mask, n - 1)) || 
+        (pos == n - 1 && n > 1 && getBit(mask, 0)))
+        return -1;
+    return setBit(mask, pos);
+}
+
+// Additional useful one-liners:
+// Check if all bits in range [i,j] are set: ((n >> i) & createMask(j-i+1)) == createMask(j-i+1)
+// Toggle all bits: n ^ createMask(totalBits)
+// Isolate rightmost n bits: n & createMask(n)
+// Check if n has exactly k bits set: __builtin_popcount(n) == k
+// Get position of rightmost set bit: __builtin_ctz(n)
+// Get position of leftmost set bit: 31 - __builtin_clz(n) (for 32-bit)
+// Set all bits from position i to end: n | (~0 << i)
+// Clear all bits from position i to end: n & ((1 << i) - 1)
+\end{lstlisting}
+
+\newpage
+\subsubsection{Ordered Set Template}
+C++ ordered sets using Policy-Based Data Structures (PBDS) for advanced operations.
+
+\begin{lstlisting}[caption={Ordered Set Template}]
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+// Ordered set (unique elements, ascending)
+template<class T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+// Ordered multiset (allows duplicates, ascending)
+template<class T> using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+// Ordered set (unique elements, descending)
+template<class T> using ordered_set_desc = tree<T, null_type, greater<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+// Ordered multiset (allows duplicates, descending)
+template<class T> using ordered_multiset_desc = tree<T, null_type, greater_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Ordered Set Functions}]
+// order_of_key(k): #elements < k; find_by_order(k): kth element (0-indexed)
+// insert(), erase(), find() as in set
+ordered_multiset<int> ss; ss.insert(5); ss.insert(2); ss.insert(7); ss.insert(2);
+cout << ss.order_of_key(5) << endl;      // 3
+cout << *ss.find_by_order(1) << endl;    // 2
+ss.erase(ss.find_by_order(ss.order_of_key(2))); // erase one '2'
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Custom Comparator for Ordered Set}]
+template<class T>
+struct custom_compare {
+    bool operator()(const T& a, const T& b) const {
+        if (a == b) return true; // Keep duplicates
+        return a > b; // Sort descending
+    }
+};
+template<class T> using ordered_multiset_custom = tree<T, null_type, custom_compare<T>, rb_tree_tag, tree_order_statistics_node_update>;
+\end{lstlisting}
+
+\newpage
+
 \subsection{Advanced Data Structures}
 
 \subsubsection{Segment Tree (Iterative)}
@@ -1750,15 +1940,8 @@ const int LARGE_N = 10000; // For very large binary strings
 unsigned long long largeDecimal = bitset<LARGE_N>(longBinaryStr).to_ullong();
 \end{lstlisting}
 
-\subsubsection{Binary to Decimal Notes}
-\begin{itemize}
-\item \textbf{stoll Method}: Limited to 64-bit integers
-\item \textbf{bitset Method}: Can handle larger binary strings
-\item \textbf{Time Complexity}: O(n) where n is binary string length
-\item \textbf{Applications}: Binary arithmetic, bit manipulation
-\end{itemize}
 
-\newpage
+
 \begin{lstlisting}[caption={Decimal to Binary Conversion}]
 #include <bitset>
 
@@ -1778,15 +1961,11 @@ string binaryStr = format("{:b}", decimal);
 // Result: "1010"
 \end{lstlisting}
 
-\subsubsection{Decimal to Binary Notes}
-\begin{itemize}
-\item \textbf{bitset Method}: Most reliable for standard integers
-\item \textbf{format Method}: Clean C++20 approach
-\item \textbf{Leading Zeros}: Need manual handling for clean output
-\item \textbf{Applications}: Binary representation, bit manipulation
-\end{itemize}
-
 \newpage
+
+\subsection{Coordinate Compression}
+Efficiently map large values to smaller ranges for data structures.
+
 \begin{lstlisting}[caption={Coordinate Compression Template}]
 template <typename T>
 class Compress {
@@ -1830,11 +2009,12 @@ for (int i = 0; i < comp.size(); i++) {
 \begin{itemize}
 \item \textbf{Time Complexity}: O(N log N) for construction, O(1) for lookup
 \item \textbf{Space Complexity}: O(N) for sorted list and hashmap
-\item \textbf{Applications}: Segment trees, large value ranges, sparse data
-\item \textbf{Features}: Preserves relative ordering, bidirectional mapping
 \end{itemize}
 
 \newpage
+\subsection{Performance Utilities}
+Tools for measuring and optimizing code performance.
+
 \begin{lstlisting}[caption={Measure Time Utility}]
 #include <iostream>
 #include <chrono>
@@ -1876,6 +2056,9 @@ int main() {
 \end{itemize}
 
 \newpage
+\subsection{Random Number Generation}
+Generate random numbers for testing and simulation.
+
 \begin{lstlisting}[caption={Random Number Generator}]
 #include <iostream>
 #include <random>
@@ -1897,8 +2080,6 @@ for (int i = 0; i < 5; ++i) {
 // Output: e.g. 42 17 89 3 76
 \end{lstlisting}
 
-
-
 \subsubsection{Number Generator Notes}
 \begin{itemize}
 \item \textbf{High Quality}: Uses mt19937\_64 for 64-bit random numbers
@@ -1909,6 +2090,9 @@ for (int i = 0; i < 5; ++i) {
 \end{itemize}
 
 \newpage
+\subsection{String Utilities}
+Common string manipulation and parsing utilities.
+
 \begin{lstlisting}[caption={String Split Utility}]
 template<typename T>
 vector<T> split(const string& line, char delimiter = ' ') {
@@ -1941,23 +2125,460 @@ vector<string> split(const string& line, char delimiter = ' ') {
 \end{lstlisting}
 
 \begin{lstlisting}[caption={String Split Examples}]
-// Split string into integers (default delimiter is space)
-string line = "10 20 30";
-vector<int> ints = split<int>(line);
-// Result: [10, 20, 30]
+// Split string to vector<int>
+vector<int> ints = split<int>("10 20 30"); // [10, 20, 30]
 
-// Split string into doubles (specify delimiter)
-string line2 = "3.14,2.71,1.41";
-vector<double> doubles = split<double>(line2, ',');
-// Result: [3.14, 2.71, 1.41]
+// Split string to vector<double> with comma delimiter
+vector<double> doubles = split<double>("3.14,2.71,1.41", ','); // [3.14, 2.71, 1.41]
 
-// Read a line from input and split it
-string input;
-getline(cin, input);
+// Split input line to vector<int>
+string input; getline(cin, input);
 vector<int> values = split<int>(input);
-// Now you can use the values vector as needed
 \end{lstlisting}
 
 
+
+\newpage
+\subsection{Custom Comparators}
+Custom comparators for sets, maps, and priority queues in C++.
+\begin{lstlisting}[caption={Custom Comparator Approaches}]
+// Struct comparator (descending):
+struct Desc { bool operator()(int a, int b) const { return a > b; } };
+set<int, Desc> s; 
+map<int, int, Desc> m; 
+priority_queue<int, vector<int>, Desc> pq;
+
+// Lambda comparator (descending):
+auto cmp = [](int a, int b) { return a > b; };
+set<int, decltype(cmp)> s2(cmp);
+map<int, int, decltype(cmp)> m2(cmp);
+priority_queue<int, vector<int>, decltype(cmp)> pq2(cmp);
+
+// Priority queues:
+priority_queue<int> maxHeap; // max-heap (default)
+priority_queue<int, vector<int>, greater<int>> minHeap; // min-heap
+\end{lstlisting}
+
+\subsubsection{Custom Comparators Notes}
+\begin{itemize}
+\item \textbf{Struct Approach}: No need to pass comparator instance to constructor
+\item \textbf{Lambda Approach}: Must pass comparator instance to constructor
+\item \textbf{decltype}: Use to deduce lambda function type
+\item \textbf{Priority Queue Logic}: Comparator logic is reversed compared to set/map
+\item \textbf{Applications}: Reverse ordering, custom object sorting, specialized sorting
+\item \textbf{Important}: For priority\_queue, comparator returns true if first argument should come after second
+\end{itemize}
+
+\newpage
+\section{Searching Algorithms}
+
+\subsection{Binary Search}
+\begin{lstlisting}[caption={Binary Search Implementation}]
+// Standard binary search
+int binarySearch(vector<int>& arr, int target) {
+    int low = 0, high = arr.size() - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}
+
+// Using STL binary_search
+bool found = binary_search(arr.begin(), arr.end(), target);
+\end{lstlisting}
+
+\subsection{Lower Bound / Upper Bound}
+\begin{lstlisting}[caption={Lower Bound Implementation}]
+// Manual lower bound
+int lowerBound(vector<int>& arr, int target) {
+    int low = 0, high = arr.size() - 1, index = -1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (arr[mid] >= target) {
+            index = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return index;
+}
+
+// Using STL lower_bound
+int index = lower_bound(arr.begin(), arr.end(), target) - arr.begin();
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[caption={Upper Bound Implementation}]
+// Manual upper bound
+int upperBound(vector<int>& arr, int target) {
+    int low = 0, high = arr.size() - 1, index = -1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (arr[mid] > target) {
+            index = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return index;
+}
+
+// Using STL upper_bound
+int index = upper_bound(arr.begin(), arr.end(), target) - arr.begin();
+\end{lstlisting}
+
+\newpage
+
+\subsection{Binary Search on Answer}
+\begin{lstlisting}
+// Binary search on answer when we need to find minimum/maximum
+// that satisfies some condition
+long long binarySearchOnAnswer(long long left, long long right, function<bool(long long)> check) {
+    long long ans = right;
+    while (left <= right) {
+        long long mid = left + (right - left) / 2;
+        if (check(mid)) {
+            ans = mid;
+            right = mid - 1; // For minimum
+            // left = mid + 1; // For maximum
+        } else {
+            left = mid + 1; // For minimum
+            // right = mid - 1; // For maximum
+        }
+    }
+    return ans;
+}
+
+// Example: Find minimum time to complete a task
+bool canComplete(vector<int>& tasks, long long time) {
+    long long total = 0;
+    for (int task : tasks) {
+        total += (time + task - 1) / task; // Ceiling division
+    }
+    return total <= time;
+}
+\end{lstlisting}
+
+\newpage
+        
+\subsection{Ternary Search}
+\begin{lstlisting}
+// Integer ternary search for unimodal function
+int ternarySearchInt(int left, int right, function<int(int)> f) {
+    while (right - left > 3) {
+        int mid1 = left + (right - left) / 3;
+        int mid2 = right - (right - left) / 3;
+        
+        if (f(mid1) < f(mid2)) {
+            left = mid1;
+        } else {
+            right = mid2;
+        }
+    }
+    
+    // Check remaining points
+    int best = left;
+    for (int i = left; i <= right; i++) {
+        if (f(i) < f(best)) best = i;
+    }
+    
+    return best;
+}
+
+// Floating point ternary search
+double ternarySearchDouble(double left, double right, function<double(double)> f, double eps = 1e-9) {
+    while (right - left > eps) {
+        double mid1 = left + (right - left) / 3;
+        double mid2 = right - (right - left) / 3;
+        
+        if (f(mid1) < f(mid2)) {
+            left = mid1;
+        } else {
+            right = mid2;
+        }
+    }
+    
+    return left;
+}
+\end{lstlisting}
+
+\newpage
+\section{Geometry (CP Basics)}
+
+\subsection{Points \& Vectors}
+\begin{lstlisting}[caption={Point and Vector Structure}]
+#include <bits/stdc++.h>
+using namespace std;
+
+const double EPS = 1e-9;
+const double PI = acos(-1.0);
+
+struct Point {
+    double x, y;
+    Point(double x = 0, double y = 0) : x(x), y(y) {}
+    
+    Point operator+(Point p) { return Point(x + p.x, y + p.y); }
+    Point operator-(Point p) { return Point(x - p.x, y - p.y); }
+    Point operator*(double t) { return Point(x * t, y * t); }
+    
+    double dot(Point p) { return x * p.x + y * p.y; }
+    double cross(Point p) { return x * p.y - y * p.x; }
+    double norm() { return sqrt(x * x + y * y); }
+    Point rotate(double a) { return Point(x*cos(a) - y*sin(a), x*sin(a) + y*cos(a)); }
+};
+
+double dist(Point a, Point b) { return (a - b).norm(); }
+\end{lstlisting}
+
+\newpage
+
+\subsection{Lines \& Segments}
+\begin{lstlisting}[caption={Line and Segment Operations}]
+// Distance point to line
+double distPointLine(Point p, Point a, Point b) {
+    return abs((b - a).cross(p - a)) / (b - a).norm();
+}
+
+// Distance point to segment
+double distPointSeg(Point p, Point a, Point b) {
+    if ((b - a).dot(p - a) < 0) return (p - a).norm();
+    if ((a - b).dot(p - b) < 0) return (p - b).norm();
+    return distPointLine(p, a, b);
+}
+
+// Line intersection
+bool lineIntersect(Point a1, Point b1, Point a2, Point b2, Point& res) {
+    Point d1 = b1 - a1, d2 = b2 - a2;
+    double cross = d1.cross(d2);
+    if (abs(cross) < EPS) return false;
+    double t = (a2 - a1).cross(d2) / cross;
+    res = a1 + d1 * t;
+    return true;
+}
+
+// Segment intersection
+bool segIntersect(Point a1, Point b1, Point a2, Point b2) {
+    Point d1 = b1 - a1, d2 = b2 - a2;
+    double cross = d1.cross(d2);
+    if (abs(cross) < EPS) return false;
+    double t1 = (a2 - a1).cross(d2) / cross;
+    double t2 = (a2 - a1).cross(d1) / cross;
+    return t1 >= 0 && t1 <= 1 && t2 >= 0 && t2 <= 1;
+}
+\end{lstlisting}
+
+\newpage
+
+\subsection{Polygons \& Areas}
+\begin{lstlisting}[caption={Polygon Area Calculations}]
+// Polygon area (signed)
+double polyArea(vector<Point>& poly) {
+    double area = 0;
+    int n = poly.size();
+    for (int i = 0; i < n; i++)
+        area += poly[i].cross(poly[(i + 1) % n]);
+    return area / 2.0;
+}
+
+// Alternative polygon area (triangulation from first vertex)
+double polyAreaAlt(vector<Point>& poly) {
+    double area = 0;
+    for (int i = 1; i < poly.size() - 1; i++)
+        area += (poly[i] - poly[0]).cross(poly[i + 1] - poly[0]);
+    return abs(area / 2.0);
+}
+
+// Triangle area using cross product
+double triArea(Point a, Point b, Point c) {
+    return abs((b - a).cross(c - a)) / 2.0;
+}
+
+// Triangle area using Heron's formula (given side lengths)
+double triAreaHeron(double a, double b, double c) {
+    double s = (a + b + c) * 0.5;
+    return sqrt(s * (s - a) * (s - b) * (s - c));
+}
+
+// Triangle area using coordinate formula
+double triAreaCoord(Point a, Point b, Point c) {
+    return abs(a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) / 2.0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[caption={Polygon Centroid and Lattice Points}]
+// Polygon centroid
+Point polyCentroid(vector<Point>& poly) {
+    Point centroid(0, 0);
+    double area = 0;
+    int n = poly.size();
+    for (int i = 0; i < n; i++) {
+        int j = (i + 1) % n;
+        double cross = poly[i].cross(poly[j]);
+        area += cross;
+        centroid = centroid + (poly[i] + poly[j]) * cross;
+    }
+    area /= 2.0;
+    return centroid * (1.0 / (6.0 * area));
+}
+
+// Lattice points (Pick's theorem: A = I + B/2 - 1)
+int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
+
+// Boundary lattice points on segment
+int boundaryPoints(Point a, Point b) {
+    return gcd(abs((int)(b.x - a.x)), abs((int)(b.y - a.y))) + 1;
+}
+
+// Interior lattice points using Pick's theorem
+int interiorPoints(vector<Point>& poly) {
+    int boundary = 0;
+    int n = poly.size();
+    for (int i = 0; i < n; i++) {
+        boundary += boundaryPoints(poly[i], poly[(i + 1) % n]) - 1;
+    }
+    return (int)abs(polyArea(poly)) - boundary / 2 + 1;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[caption={Point in Polygon and Convex Hull}]
+bool pointInPoly(Point p, vector<Point>& poly) {
+    int n = poly.size();
+    bool inside = false;
+    for (int i = 0, j = n - 1; i < n; j = i++) {
+        if (((poly[i].y > p.y) != (poly[j].y > p.y)) &&
+            (p.x < (poly[j].x - poly[i].x) * (p.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x))
+            inside = !inside;
+    }
+    return inside;
+}
+
+// Convex hull
+vector<Point> convexHull(vector<Point> pts) {
+    sort(pts.begin(), pts.end(), [](Point a, Point b) { 
+        return a.x < b.x || (a.x == b.x && a.y < b.y); 
+    });
+    
+    vector<Point> hull;
+    // Lower hull
+    for (Point p : pts) {
+        while (hull.size() >= 2 && (hull[hull.size()-1] - hull[hull.size()-2]).cross(p - hull[hull.size()-2]) <= 0)
+            hull.pop_back();
+        hull.push_back(p);
+    }
+    
+    // Upper hull
+    int t = hull.size() + 1;
+    for (int i = pts.size() - 2; i >= 0; i--) {
+        while (hull.size() >= t && (hull[hull.size()-1] - hull[hull.size()-2]).cross(pts[i] - hull[hull.size()-2]) <= 0)
+            hull.pop_back();
+        hull.push_back(pts[i]);
+    }
+    
+    hull.pop_back();
+    return hull;
+}
+\end{lstlisting}
+
+\newpage
+
+\subsection{Circles and Advanced Geometry}
+\begin{lstlisting}[caption={Circle Operations and Properties}]
+// Cosine rule and triangle properties
+double cosineRule(double a, double b, double c) {
+    return (a*a + b*b - c*c) / (2*a*b);
+}
+
+// Regular polygon properties
+double regPolyArea(int n, double side) {
+    return n * side * side / (4 * tan(PI/n));
+}
+
+double regPolyRadius(int n, double side) {
+    return side / (2 * sin(PI/n));
+}
+
+struct Circle {
+    Point c; double r;
+    Circle(Point c, double r) : c(c), r(r) {}
+    bool contains(Point p) { return dist(c, p) <= r + EPS; }
+};
+
+// Circle from 3 points
+Circle circumcircle(Point a, Point b, Point c) {
+    double d = 2 * (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
+    double ux = ((a.x*a.x + a.y*a.y) * (b.y - c.y) + (b.x*b.x + b.y*b.y) * (c.y - a.y) + (c.x*c.x + c.y*c.y) * (a.y - b.y)) / d;
+    double uy = ((a.x*a.x + a.y*a.y) * (c.x - b.x) + (b.x*b.x + b.y*b.y) * (a.x - c.x) + (c.x*c.x + c.y*c.y) * (b.x - a.x)) / d;
+    Point center(ux, uy);
+    return Circle(center, dist(center, a));
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[caption={Circle Intersection and Transformations}]
+// Circle-circle intersection
+int circleIntersect(Circle c1, Circle c2, Point& p1, Point& p2) {
+    double d = dist(c1.c, c2.c);
+    if (d > c1.r + c2.r || d < abs(c1.r - c2.r)) return 0;
+    
+    double a = (c1.r*c1.r - c2.r*c2.r + d*d) / (2*d);
+    Point p = c1.c + (c2.c - c1.c) * (a/d);
+    
+    if (abs(d - c1.r - c2.r) < EPS || abs(d - abs(c1.r - c2.r)) < EPS) {
+        p1 = p; return 1;
+    }
+    
+    double h = sqrt(c1.r*c1.r - a*a);
+    Point perp = Point(-(c2.c.y - c1.c.y), c2.c.x - c1.c.x) * (h/d);
+    p1 = p + perp; p2 = p - perp;
+    return 2;
+}
+
+Point rotate(Point p, Point center, double angle) {
+    return center + (p - center).rotate(angle);
+}
+
+Point reflect(Point p, Point a, Point b) {
+    Point v = (b - a) * (1.0 / (b - a).norm());
+    Point foot = a + v * ((p - a).dot(v));
+    return foot * 2 - p;
+}
+\end{lstlisting}
+
+\newpage
+
+\subsection{3D Geometry}
+\begin{lstlisting}[caption={3D Point and Vector Operations}]
+
+struct Point3D {
+    double x, y, z;
+    Point3D(double x = 0, double y = 0, double z = 0) : x(x), y(y), z(z) {}
+    
+    Point3D operator+(Point3D p) { return Point3D(x + p.x, y + p.y, z + p.z); }
+    Point3D operator-(Point3D p) { return Point3D(x - p.x, y - p.y, z - p.z); }
+    Point3D operator*(double t) { return Point3D(x * t, y * t, z * t); }
+    
+    double dot(Point3D p) { return x * p.x + y * p.y + z * p.z; }
+    Point3D cross(Point3D p) { return Point3D(y*p.z - z*p.y, z*p.x - x*p.z, x*p.y - y*p.x); }
+    double norm() { return sqrt(x*x + y*y + z*z); }
+};
+
+double dist3D(Point3D a, Point3D b) { return (a - b).norm(); }
+
+// Volume of tetrahedron
+double tetVolume(Point3D a, Point3D b, Point3D c, Point3D d) {
+    return abs((b - a).cross(c - a).dot(d - a)) / 6.0;
+}
+\end{lstlisting}
 
 \end{document}
