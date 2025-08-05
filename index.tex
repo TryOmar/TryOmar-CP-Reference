@@ -1789,6 +1789,38 @@ int lcm(int a, int b) {
 \end{itemize}
 
 \newpage
+\subsection{Quadratic Equation}
+Solve quadratic equations of the form ax² + bx + c = 0.
+
+\begin{lstlisting}[caption={Quadratic Equation Solver}]
+#include <cmath>
+using namespace std;
+
+// Returns pair of roots, or {-1, -1} if no real roots
+pair<double, double> solveQuadratic(double a, double b, double c) {
+    if (abs(a) < 1e-9)
+        return abs(b) < 1e-9 ? make_pair(-1.0, -1.0) : make_pair(-c/b, -c/b);
+    double disc = b*b - 4*a*c;
+    if (disc < 0) 
+        return {-1, -1};
+    double sqrtDisc = sqrt(disc);
+    return {(-b + sqrtDisc)/(2*a), (-b - sqrtDisc)/(2*a)};
+}
+\end{lstlisting}
+
+\subsubsection*{Quadratic Equation Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(1) - constant time
+\item \textbf{Space Complexity}: O(1) - constant space
+\item \textbf{Formula}: x = (-b ± $\sqrt{b^2 - 4ac}$) / (2a)
+\item \textbf{Discriminant}: b² - 4ac determines number of real roots
+\item \textbf{Real Roots}: When discriminant \textgreater= 0
+\item \textbf{No Real Roots}: When discriminant < 0
+\item \textbf{Double Root}: When discriminant = 0
+\item \textbf{Applications}: Physics problems, optimization, geometry
+\end{itemize}
+
+\newpage
 \subsection{Combinatorics}
 Basic combinatorial functions with modular arithmetic support.
 
