@@ -1422,6 +1422,52 @@ int lengthOfLIS(vector<int>& nums) {
 
 \newpage
 
+\subsection{Maximum Subarray Sum}
+The Maximum Subarray Sum problem finds the contiguous subarray with the largest sum. This is a classic dynamic programming problem with applications in data analysis and signal processing.
+
+\begin{lstlisting}[caption={Standard Max Subarray (Kadane's Algorithm)}]
+int maxSubArray(vector<int>& nums) {
+    int curr = nums[0], res = nums[0];
+    for (int i = 1; i < nums.size(); ++i) {
+        curr = max(nums[i], curr + nums[i]);
+        res = max(res, curr);
+    }
+    return res;
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Circular Max Subarray}]
+int maxSubarraySumCircular(vector<int>& nums) {
+    int total = 0, maxSum = nums[0], minSum = nums[0];
+    int currMax = 0, currMin = 0;
+
+    for (int n : nums) {
+        currMax = max(n, currMax + n);
+        maxSum = max(maxSum, currMax);
+
+        currMin = min(n, currMin + n);
+        minSum = min(minSum, currMin);
+
+        total += n;
+    }
+
+    return maxSum < 0 ? maxSum : max(maxSum, total - minSum);
+}
+\end{lstlisting}
+
+\subsubsection*{Circular Max Subarray Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(n) - linear time
+\item \textbf{Space Complexity}: O(1) - constant space
+\item \textbf{Circular Array}: Can wrap around from end to beginning
+\item \textbf{Two Cases}: Either max subarray is within array or wraps around
+\item \textbf{Wrap Around Case}: total - minSum gives maximum circular sum
+\item \textbf{Edge Case}: If maxSum < 0, all elements are negative
+\end{itemize}
+
+\newpage
+
 \section{Backtracking}
 
 \subsection{Subsets}
