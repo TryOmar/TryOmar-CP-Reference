@@ -541,7 +541,7 @@ int main() {
 }
 \end{lstlisting}
 
-
+\newpage
 
 \section{Graph Algorithms}
 
@@ -787,30 +787,25 @@ vector<int> getPath(int end) {
 Floyd-Warshall finds shortest paths between all pairs of vertices in a weighted graph.
 
 \begin{lstlisting}[caption={Floyd-Warshall Algorithm}]
-vector<vector<int>> dist;  // Distance matrix
-int n;
+int main() {
+    int INF = 1e9;
+    int n = 4;
+    vector<vector<int>> mat = {
+        {0, 3, INF, 7},
+        {8, 0, 2, INF},
+        {5, INF, 0, 1},
+        {2, INF, INF, 0}
+    };
 
-void floydWarshall() {
-    // Initialize distance matrix
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i == j) dist[i][j] = 0;
-            else dist[i][j] = INT_MAX;
-        }
-    }
-    
-    // Add edges
-    // dist[u][v] = weight;  // Add your edges here
-    
-    // Floyd-Warshall algorithm
-    for (int k = 0; k < n; k++) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (dist[i][k] != INT_MAX && dist[k][j] != INT_MAX) {
-                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
-                }
-            }
-        }
+    for (int mid = 0; mid < n; mid++)
+        for (int from = 0; from < n; from++)
+            for (int to = 0; to < n; to++)
+                mat[from][to] = min(mat[from][to], mat[from][mid] + mat[mid][to]);
+
+    for (int from = 0; from < n; from++) {
+        for (int to = 0; to < n; to++)
+            cout << (mat[from][to] == INF ? -1 : mat[from][to]) << " ";
+        cout << "\n";
     }
 }
 \end{lstlisting}
@@ -1009,33 +1004,960 @@ bool detectCycleDirected(int n) {
 
 \newpage
 
-\subsection{Important Notes}
+\section{Dynamic Programming}
 
-\subsubsection{Graph Representation}
+\subsection{Longest Increasing Subsequence (LIS)}
+The Longest Increasing Subsequence problem finds the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order.
+
+\begin{lstlisting}[caption={LIS - 2D DP Bottom-Up Implementation}]
+int lengthOfLIS(vector<int>& nums) {
+    int n = nums.size();
+    vector<vector<int>> dp(n + 2, vector<int>(n + 2));
+
+    for (int i = n - 1; i >= 0; --i) {
+        for (int j = i - 1; j >= -1; --j) {
+            int curr = i + 1, prev = j + 1;
+            if (j == -1 || nums[i] > nums[j])
+                dp[curr][prev] = dp[curr + 1][curr] + 1;
+            dp[curr][prev] = max(dp[curr][prev], dp[curr + 1][prev]);
+        }
+    }
+
+    // Reconstruct the LIS
+    vector<int> lis;
+    int i = 0, j = -1;
+    while (i < n) {
+        int curr = i + 1, prev = j + 1;
+        if (dp[curr][prev] == dp[curr + 1][curr] + 1 && (j == -1 || nums[i] > nums[j])) {
+            lis.push_back(nums[i]);
+            j = i;
+        }
+        i++;
+    }
+
+    return dp[1][0];
+}
+\end{lstlisting}
+
+\subsubsection{LIS 2D DP Notes}
 \begin{itemize}
-\item \textbf{Adjacency List}: Space O(V + E), good for sparse graphs
-\item \textbf{Adjacency Matrix}: Space O(V²), good for dense graphs
-\item \textbf{Edge List}: Space O(E), useful for some algorithms
+\item \textbf{Time Complexity}: O(n²) - quadratic time
+\item \textbf{Space Complexity}: O(n²) for 2D DP table
+\item \textbf{State Definition}: dp[i+1][j+1] represents LIS from index i with last element at j
+\item \textbf{Reconstruction}: Can reconstruct the actual LIS sequence
+\item \textbf{Usage}: Use for understanding and simple cases
 \end{itemize}
 
-\subsubsection{Algorithm Complexities}
+\newpage
+\begin{lstlisting}[caption={LIS - 1D DP Bottom-Up Implementation}]
+int lengthOfLIS(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> dp(n, 1);
+    for (int i = n - 1; i >= 0; --i)
+        for (int j = i + 1; j < n; ++j)
+            if (nums[j] > nums[i])
+                dp[i] = max(dp[i], dp[j] + 1);
+
+    // Reconstruct the LIS
+    int maxLen = *max_element(dp.begin(), dp.end());
+    vector<int> lis;
+    for (int i = 0; i < n && maxLen; ++i)
+        if (dp[i] == maxLen) {
+            lis.push_back(nums[i]);
+            --maxLen;
+        }
+
+    return *max_element(dp.begin(), dp.end());
+}
+\end{lstlisting}
+
+\subsubsection{LIS 1D DP Notes}
 \begin{itemize}
-\item \textbf{DFS/BFS}: Time O(V + E), Space O(V)
-\item \textbf{Dijkstra}: Time O((V + E) log V), Space O(V)
-\item \textbf{Floyd-Warshall}: Time O(V³), Space O(V²)
-\item \textbf{Topological Sort}: Time O(V + E), Space O(V)
-\item \textbf{Cycle Detection}: Time O(V + E), Space O(V)
+\item \textbf{Time Complexity}: O(n²) with memoization
+\item \textbf{Space Complexity}: O(n) for 1D DP array
+\item \textbf{State Definition}: dp[i] is length of LIS ending at index i
+\item \textbf{Base Case}: dp[i] = 1 for all i (single element is valid LIS)
+\item \textbf{Advantage}: More space efficient than 2D approach
 \end{itemize}
 
-\subsubsection{Usage Tips}
+\newpage
+\begin{lstlisting}[caption={LIS - Recursive Implementation}]
+int lengthOfLIS(const vector<int>& nums) {
+    int n = nums.size();
+    vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
+
+    function<int(int, int)> calculateLIS = [&](int cur, int prev) {
+        if (cur == n) return 0;
+        int i = cur + 1, j = prev + 1;
+        int& res = dp[i][j];
+        if (res != -1) return res;
+
+        if (prev == -1 || nums[cur] > nums[prev]) 
+            res = max(res, 1 + calculateLIS(cur + 1, cur));
+
+        res = max(res, calculateLIS(cur + 1, prev));
+
+        return res;
+    };
+
+    return calculateLIS(0, -1);
+}
+\end{lstlisting}
+
+\subsubsection{LIS Recursive Notes}
 \begin{itemize}
-\item Use DFS for exploring all possibilities, backtracking problems
-\item Use BFS for shortest path in unweighted graphs, level-order traversal
-\item Use Dijkstra for shortest path in weighted graphs with positive weights
-\item Use Floyd-Warshall for all-pairs shortest path or detecting negative cycles
-\item Use Topological Sort for dependency resolution, build order problems
-\item Use Cycle Detection for validating DAGs, detecting deadlocks
+\item \textbf{Time Complexity}: O(n²) with memoization
+\item \textbf{Space Complexity}: O(n²) for DP table and recursion stack
+\item \textbf{Top-down DP}: Recursive approach with memoization
+\item \textbf{Base Case}: When cur == n, return 0
+\item \textbf{Memoization}: Stores results to avoid redundant calculations
 \end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={LIS - Binary Search Implementation}]
+int lengthOfLIS(const vector<int>& a) {
+    vector<int> lis;
+    for (int i = 0; i < a.size(); ++i) {
+        auto it = lower_bound(begin(lis), end(lis), a[i]);
+        it != end(lis) ? *it = a[i] : lis.push_back(a[i]);
+    }
+    return lis.size();
+}
+
+// Reconstruct the actual LIS sequence
+vector<int> getLIS(const vector<int>& a) {
+    vector<int> lis, prev(a.size(), -1);
+    for (int i = 0; i < a.size(); ++i) {
+        auto it = lower_bound(begin(lis), end(lis), i, [&](int j, int k) { 
+            return a[j] < a[k]; 
+        });
+        it != end(lis) ? *it = i : lis.push_back(i);
+        if (it != begin(lis)) prev[i] = *(it - 1);
+    }
+    vector<int> res;
+    for (int i = lis.back(); i != -1; i = prev[i]) {
+        res.push_back(a[i]);
+    }
+    reverse(begin(res), end(res));
+    return res;
+}
+\end{lstlisting}
+
+\subsubsection{LIS Binary Search Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(n log n) - optimal approach
+\item \textbf{Space Complexity}: O(n) for LIS array and prev array
+\item \textbf{Binary Search}: Uses lower\_bound for efficient insertion
+\item \textbf{Optimal Solution}: Best time complexity for LIS problem
+\item \textbf{Usage}: Use for optimal time complexity in practice
+\item \textbf{Reconstruction}: Can reconstruct the actual LIS sequence
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={LIS - Segment Tree Implementation}]
+struct SegmentTree {
+    int n;
+    vector<int> tree;
+    
+    SegmentTree(int _n) {
+        n = _n;
+        tree.resize(2 * _n);
+    }
+
+    void update(int pos, int value) {
+        tree[pos += n] = value;
+        for (pos >>= 1; pos > 0; pos >>= 1) 
+            tree[pos] = max(tree[pos << 1], tree[pos << 1 | 1]);
+    }
+
+    int query(int l, int r) {
+        int res = 0;
+        for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) res = max(res, tree[l++]);
+            if (r & 1) res = max(res, tree[--r]);
+        }
+        return res;
+    }
+};
+
+int lengthOfLIS(vector<int>& nums) {
+    SegmentTree seg(1e5 + 1);
+    int res = 0;
+    for (auto i : nums) {
+        i += 2e4;  // Offset to handle negative numbers
+        int val = seg.query(0, i - 1) + 1;  // Find max LIS ending before i
+        res = max(res, val);
+        seg.update(i, val);  // Update the LIS at position i
+    }
+    return res;
+}
+\end{lstlisting}
+
+\subsubsection{LIS Segment Tree Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(n log M) where M is the range of values
+\item \textbf{Space Complexity}: O(M) for segment tree
+\item \textbf{Advanced Approach}: Uses segment tree for range queries
+\item \textbf{Coordinate Compression}: Can handle large value ranges
+\item \textbf{Usage}: Use when you need range queries or advanced applications
+\item \textbf{Offset}: +2e4 handles negative numbers
+\end{itemize}
+
+\newpage
+
+\section{Backtracking}
+
+\subsection{Subsets}
+Generate all possible subsets of a given array.
+
+\begin{lstlisting}[caption={Subsets Implementation}]
+#include <vector>
+using namespace std;
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> result;
+    vector<int> subset;
+    
+    function<void(int)> generate = [&](int start) {
+        // Add the current subset to the result
+        result.push_back(subset);
+        
+        // Try adding each remaining element to the current subset
+        for (int i = start; i < nums.size(); i++) {
+            subset.push_back(nums[i]);
+            generate(i + 1);
+            subset.pop_back();
+        }
+    };
+    
+    generate(0);
+    return result;
+}
+\end{lstlisting}
+
+\subsubsection{Subsets Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(2\textsuperscript{n}) where n is the number of elements
+\item \textbf{Space Complexity}: O(2\textsuperscript{n}) to store all subsets
+\item \textbf{Backtracking Pattern}: Choose → Recurse → Unchoose
+\item \textbf{Natural Generation}: Each recursive call decides whether to include each element
+\item \textbf{Empty Set}: Includes the empty set as a valid subset
+\item \textbf{No Duplicates}: Avoids duplicates by only considering elements from current index forward
+\end{itemize}
+
+\newpage
+\subsection{Permutations}
+Generate all possible permutations of a given array.
+
+\begin{lstlisting}[caption={Permutations Without Duplicates}]
+#include <vector>
+using namespace std;
+
+vector<vector<int>> permuteUnique(vector<int>& nums) {
+    vector<vector<int>> result;
+    vector<int> comb;
+    vector<bool> visited(nums.size(), false);
+
+    function<void()> permute = [&]() {
+        if (comb.size() == nums.size()) {
+            result.push_back(comb);
+            return;
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            if (visited[i]) continue;
+            visited[i] = true;
+            comb.push_back(nums[i]);
+            permute();
+            comb.pop_back();
+            visited[i] = false;
+        }
+    };
+
+    permute();
+    return result;
+}
+\end{lstlisting}
+
+\subsubsection{Permutations Without Duplicates Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(n!) where n is the number of elements
+\item \textbf{Space Complexity}: O(n!) to store all permutations
+\item \textbf{Visited Array}: Tracks which elements have been used
+\item \textbf{Perfect for Unique Elements}: Arrays with unique elements
+\item \textbf{All Orderings}: Generates all possible orderings of input array
+\item \textbf{Backtracking}: Uses visited array to prevent reusing elements
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Permutations With Duplicates}]
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+vector<vector<int>> permuteWithDuplicates(vector<int>& nums) {
+    vector<vector<int>> result;
+    unordered_map<int, int> counter;
+    for (int num : nums) counter[num]++;
+
+    vector<int> comb;
+
+    function<void()> permute = [&]() {
+        if (comb.size() == nums.size()) {
+            result.push_back(comb);
+            return;
+        }
+        for (auto& item : counter) {
+            int num = item.first;
+            int count = item.second;
+            if (count == 0) continue;
+            comb.push_back(num);
+            counter[num]--;
+            permute();
+            comb.pop_back();
+            counter[num]++;
+        }
+    };
+
+    permute();
+    return result;
+}
+\end{lstlisting}
+
+\subsubsection{Permutations With Duplicates Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(n! × n) due to factorial permutations and element checking
+\item \textbf{Space Complexity}: O(n!) to store the resulting permutations
+\item \textbf{Unordered Map}: Tracks frequency of each element
+\item \textbf{Prevents Duplicates}: More efficient for inputs with repeated elements
+\item \textbf{Counter Management}: Decrements and increments counter during backtracking
+\item \textbf{Usage}: Use when input array contains duplicate elements
+\end{itemize}
+
+\newpage
+\subsection{Combinations}
+Generate all possible combinations of k elements from an array.
+
+\begin{lstlisting}[caption={Combinations Implementation}]
+#include <vector>
+using namespace std;
+
+vector<vector<int>> combinations(vector<int>& nums, int k) {
+    vector<vector<int>> result;
+    vector<int> comb;
+
+    function<void(int)> combine = [&](int start) {
+        if (comb.size() == k) {
+            result.push_back(comb);
+            return;
+        }
+        for (int i = start; i < nums.size(); i++) {
+            comb.push_back(nums[i]);
+            combine(i + 1);
+            comb.pop_back();
+        }
+    };
+
+    combine(0);
+    return result;
+}
+\end{lstlisting}
+
+\subsubsection{Combinations Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(C(n,k)) or O(n!/(k!(n-k)!)) where n is number of elements and k is size of each combination
+\item \textbf{Space Complexity}: O(C(n,k)) to store all combinations
+\item \textbf{Starting Index}: Uses start parameter to avoid duplicates
+\item \textbf{Size Constraint}: Generates combinations of exactly size k
+\item \textbf{No Reuse}: No element is used more than once in each combination
+\item \textbf{Order Independent}: Unlike permutations, order doesn't matter in combinations
+\end{itemize}
+
+\newpage
+
+\section{String Algorithms}
+
+\subsection{C++ STL String Functions}
+Essential string manipulation functions from the C++ Standard Library.
+
+\begin{lstlisting}[caption={STL String Functions}]
+#include <string>
+#include <algorithm>
+
+string s = "Hello World";
+// Basic operations
+s.length();                    // Get string length
+s.size();                      // Same as length()
+s.empty();                     // Check if empty
+s.clear();                     // Clear string
+// Access elements
+s[0];                         // Access character
+s.at(0);                      // Bounds-checked access
+s.front();                     // First character
+s.back();                      // Last character
+// String manipulation
+s.substr(0, 5);               // Substring
+s.find("World");               // Find substring
+s.replace(0, 5, "Hi");        // Replace substring
+s.insert(5, " ");             // Insert at position
+// String algorithms
+reverse(s.begin(), s.end());   // Reverse string
+sort(s.begin(), s.end());      // Sort characters
+transform(s.begin(), s.end(), s.begin(), ::tolower); // To lowercase
+transform(s.begin(), s.end(), s.begin(), ::toupper); // To uppercase
+// String concatenation
+string s1 = "Hello";
+string s2 = "World";
+string result = s1 + " " + s2; // Concatenation
+s1.append(s2);                 // Append to string
+s1 += s2;                      // Append operator
+\end{lstlisting}
+
+\subsubsection{STL String Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: Most operations O(1) or O(n)
+\item \textbf{Memory Efficient}: String uses dynamic allocation
+\item \textbf{STL Algorithms}: Can use all STL algorithms on strings
+\item \textbf{Character Access}: Direct indexing and bounds-checked access
+\end{itemize}
+
+\newpage
+\subsection{Longest Substring Without Repeating Characters}
+Find the length of the longest substring without repeating characters.
+
+\begin{lstlisting}[caption={Longest Substring Without Repeating Characters}]
+int lengthOfLongestSubstring(string s) {
+    vector<int> charIndex(128, -1);  // ASCII characters
+    int maxLength = 0;
+    int start = 0;
+    
+    for (int end = 0; end < s.length(); end++) {
+        char currentChar = s[end];
+        
+        // If character already seen, update start
+        if (charIndex[currentChar] >= start) {
+            start = charIndex[currentChar] + 1;
+        }
+        
+        charIndex[currentChar] = end;
+        maxLength = max(maxLength, end - start + 1);
+    }
+    
+    return maxLength;
+}
+\end{lstlisting}
+
+\subsubsection{Longest Substring Notes}
+\begin{itemize}
+\item \textbf{Sliding Window}: Uses two pointers technique
+\item \textbf{Time Complexity}: O(n) where n is string length
+\item \textbf{Space Complexity}: O(1) for fixed alphabet size
+\item \textbf{Character Tracking}: Uses array to track last position
+\end{itemize}
+
+\newpage
+\subsection{Trie (Prefix Tree)}
+A trie is a tree-like data structure used to store a dynamic set of strings.
+
+\begin{lstlisting}[caption={Trie Node Implementation}]
+struct TrieNode {
+    vector<TrieNode*> children;
+    bool isEndOfWord;
+    
+    TrieNode() {
+        children.resize(26, nullptr);
+        isEndOfWord = false;
+    }
+};
+\end{lstlisting}
+
+\subsubsection{Trie Node Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(1) for insertion and search
+\item \textbf{Space Complexity}: O(ALPHABET\_SIZE $\times$ N $\times$ M)
+\item \textbf{Applications}: Prefix matching, autocomplete
+\end{itemize}
+
+\newpage
+
+\begin{lstlisting}[caption={Trie Implementation}]
+
+class Trie {
+private:
+    TrieNode* root;
+    
+public:
+    Trie() { root = new TrieNode(); }
+    void insert(string word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int index = c - 'a';
+            if (!node->children[index])  node->children[index] = new TrieNode();
+            node = node->children[index];
+        }
+        node->isEndOfWord = true;
+    }
+    bool search(string word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int index = c - 'a';
+            if (!node->children[index])  return false;
+            node = node->children[index];
+        }
+        return node->isEndOfWord;
+    }
+    bool startsWith(string prefix) {
+        TrieNode* node = root;
+        for (char c : prefix) {
+            int index = c - 'a';
+            if (!node->children[index])  return false;
+            node = node->children[index];
+        }
+        return true;
+    }
+};
+\end{lstlisting}
+
+\subsubsection{Trie Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(m) where m is string length
+\item \textbf{Space Complexity}: O(ALPHABET\_SIZE $\times$ N $\times$ M)
+\item \textbf{Applications}: Prefix matching, autocomplete
+\item \textbf{Memory Usage}: Can be memory intensive for large datasets
+\end{itemize}
+
+\newpage
+\section{Mathematics}
+
+\subsection{Fast Power (Binary Exponentiation)}
+Efficiently compute large powers using binary exponentiation.
+
+
+\begin{lstlisting}[caption={Binary Exponentiation - Iterative}]
+int64_t power(int64_t base, int64_t exp) {
+    int64_t result = 1;
+    while (exp > 0) {
+        if (exp & 1) result *= base;
+        base *= base;
+        exp >>= 1;
+    }
+    return result;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Modular Exponentiation}]
+int64_t modPower(int64_t base, int64_t exp, int64_t mod) {
+    int64_t result = 1;
+    base = base % mod;
+    while (exp > 0) {
+        if (exp & 1) result = (result * base) % mod;
+        base = (base * base) % mod;
+        exp >>= 1;
+    }
+    return result;
+}
+\end{lstlisting}
+
+\subsubsection{Modular Exponentiation Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(log exp) - logarithmic time
+\item \textbf{Space Complexity}: O(1) constant space
+\item \textbf{Modulo Arithmetic}: Handles large numbers with modulo
+\item \textbf{Overflow Prevention}: Essential for competitive programming
+\item \textbf{Applications}: Cryptography, number theory problems
+\end{itemize}
+
+\newpage
+\subsection{GCD and LCM Functions}
+Greatest Common Divisor and Least Common Multiple functions.
+
+\begin{lstlisting}[caption={GCD and LCM Functions}]
+int gcd(int a, int b) {
+    while (b != 0) {
+        a %= b;
+        swap(a, b);
+    }
+    return a;
+}
+
+int lcm(int a, int b) {
+    return (a / gcd(a, b)) * b;
+}
+\end{lstlisting}
+
+\subsubsection{GCD/LCM Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(log min(a,b)) for GCD
+\item \textbf{Space Complexity}: O(1) constant space
+\item \textbf{Euclidean Algorithm}: Efficient GCD calculation
+\item \textbf{LCM Formula}: LCM(a,b) = (a × b) / GCD(a,b)
+\item \textbf{Applications}: Number theory, fraction simplification
+\end{itemize}
+
+\newpage
+\subsection{Combinatorics}
+Basic combinatorial functions with modular arithmetic support.
+
+\begin{lstlisting}[caption={Standard nCr and nPr}]
+// Don't use for n > 67 (int64_t overflow)
+int64_t nCr(int n, int r) {
+    if (r < 0 || r > n) return 0;
+    if (r > n - r) r = n - r;
+    int64_t res = 1;
+    for (int i = 0; i < r; ++i) {
+        res *= (n - i);
+        res /= (i + 1);
+    }
+    return res;
+}
+
+// Don't use for n > 20 or large r (int64_t overflow)
+int64_t nPr(int n, int r) {
+    if (r < 0 || r > n) return 0;
+    int64_t res = 1;
+    for (int i = 0; i < r; ++i)
+        res *= (n - i);
+    return res;
+}
+\end{lstlisting}
+
+\subsubsection{Standard Combinatorics Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(r) for both nCr and nPr
+\item \textbf{Space Complexity}: O(1) constant space
+\item \textbf{Limits}: n $\leq$ 67 for nCr, n $\leq$ 20 for nPr
+\item \textbf{Optimization}: nCr uses symmetry C(n,r) = C(n,n-r)
+\item \textbf{Applications}: Probability, counting problems
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Combinatorics with Modular Arithmetic}]
+#include <vector>
+using namespace std;
+
+class Combinatorics {
+private:
+    static const int MOD = 1000000007;
+    vector<int64_t> f, inv;
+    
+    int64_t pow(int64_t b, int64_t e) const {
+        int64_t r = 1;
+        while (e) {
+            if (e & 1) r = r * b % MOD;
+            b = b * b % MOD;
+            e >>= 1;
+        }
+        return r;
+    }
+
+public:
+    Combinatorics(int n) : f(n + 1), inv(n + 1) {
+        f[0] = 1;
+        for (int i = 1; i <= n; ++i)
+            f[i] = f[i - 1] * i % MOD;
+        inv[n] = pow(f[n], MOD - 2);
+        for (int i = n - 1; i >= 0; --i)
+            inv[i] = inv[i + 1] * (i + 1) % MOD;
+    }
+    int64_t nCr(int n, int r) const {
+        if (r < 0 || r > n) return 0;
+        return f[n] * inv[r] % MOD * inv[n - r] % MOD;
+    }
+    int64_t nPr(int n, int r) const {
+        if (r < 0 || r > n) return 0;
+        return f[n] * inv[n - r] % MOD;
+    }
+};
+\end{lstlisting}
+
+\subsubsection{Modular Combinatorics Notes}
+\begin{itemize}
+\item \textbf{Preprocessing}: O(n) time and space for setup
+\item \textbf{Query Time}: O(1) per nCr/nPr call
+\item \textbf{Limits}: n up to 10\textsuperscript{6} (uses ~16MB for n=10\textsuperscript{6})
+\item \textbf{Features}: Handles large n, fast for many queries
+\item \textbf{Fermat's Little Theorem}: Uses for modular inverse
+\item \textbf{Applications}: Large combinatorial problems
+\end{itemize}
+
+\newpage
+\subsection{Sieve of Eratosthenes}
+Efficient algorithm to find all prime numbers up to a given limit.
+
+\begin{lstlisting}[caption={Sieve of Eratosthenes}]
+#include <bits/stdc++.h>
+using namespace std;
+// Time: O(n log log n), Space: O(n)
+// Range: n up to 10^7 (typical CP limit)
+// Memory: ~40MB for n=10^7
+class Sieve {
+public:
+    vector<int> prime_factor, primes;
+    
+    Sieve(int n) {
+        prime_factor.resize(n + 1);
+        for (int i = 0; i <= n; i++) prime_factor[i] = i;
+        for (int i = 2; i <= n; i++) {
+            if (prime_factor[i] == i) {
+                primes.push_back(i);
+                for (int j = i * i; j <= n; j += i)
+                    if (prime_factor[j] == j) prime_factor[j] = i;
+            }
+        }
+    }
+};
+
+int main() {
+    Sieve sieve(100);
+    for (int p : sieve.primes) cout << p << " ";
+    cout << "\n";
+    for (int i = 12; i <= 15; i++) {
+        cout << i << ": prime_factor=" << sieve.prime_factor[i] << "\n";
+    }  
+    return 0;
+}
+\end{lstlisting}
+
+\subsubsection{Sieve Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(n log log n) - nearly linear
+\item \textbf{Space Complexity}: O(n) for boolean array
+\item \textbf{Prime Factors}: sieve.prime\_factor[x] gives smallest prime factor
+\item \textbf{Prime List}: sieve.primes contains all primes up to n
+\item \textbf{Memory Usage}: ~40MB for n=10\textsuperscript{7}
+\item \textbf{Applications}: Prime factorization, number theory
+\end{itemize}
+
+\newpage
+\section{Notes \& Utilities}
+
+\subsection{Binary Conversions}
+Convert numbers between different bases.
+
+\begin{lstlisting}[caption={Binary to Decimal Conversion}]
+// Convert binary string to decimal integer
+string binaryStr = "1010";
+int decimal = stoll(binaryStr, nullptr, 2);
+// Result: 10
+
+// Using bitset for larger binary strings
+#include <bitset>
+const int N = 32; // Enough for standard integers
+int decimal = bitset<N>("1010").to_ulong();
+// Result: 10
+
+// For longer binary strings
+const int LARGE_N = 10000; // For very large binary strings
+unsigned long long largeDecimal = bitset<LARGE_N>(longBinaryStr).to_ullong();
+\end{lstlisting}
+
+\subsubsection{Binary to Decimal Notes}
+\begin{itemize}
+\item \textbf{stoll Method}: Limited to 64-bit integers
+\item \textbf{bitset Method}: Can handle larger binary strings
+\item \textbf{Time Complexity}: O(n) where n is binary string length
+\item \textbf{Applications}: Binary arithmetic, bit manipulation
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Decimal to Binary Conversion}]
+#include <bitset>
+
+// Convert decimal to binary string
+int decimal = 10;
+const int N = 8; // Number of bits to represent
+string binaryStr = bitset<N>(decimal).to_string();
+// Result: "00001010"
+
+// Remove leading zeros if needed
+binaryStr = binaryStr.substr(binaryStr.find('1') != string::npos ? binaryStr.find('1') : N-1);
+// Result: "1010"
+
+// Using std::format (C++20)
+#include <format>
+string binaryStr = format("{:b}", decimal);
+// Result: "1010"
+\end{lstlisting}
+
+\subsubsection{Decimal to Binary Notes}
+\begin{itemize}
+\item \textbf{bitset Method}: Most reliable for standard integers
+\item \textbf{format Method}: Clean C++20 approach
+\item \textbf{Leading Zeros}: Need manual handling for clean output
+\item \textbf{Applications}: Binary representation, bit manipulation
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Coordinate Compression Template}]
+template <typename T>
+class Compress {
+    vector<T> vals;
+    unordered_map<T, int> idx;
+
+public:
+    Compress(const vector<T>& input) {
+        vals = input;
+        sort(vals.begin(), vals.end());
+        vals.erase(unique(vals.begin(), vals.end()), vals.end());
+        for (int i = 0; i < vals.size(); i++)
+            idx[vals[i]] = i;
+    }
+
+    int operator[](const T& x) const { return idx.at(x); }
+    T orig(int i) const { return vals.at(i); }
+    int size() const { return vals.size(); }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Coordinate Compression Example}]
+// Basic usage
+vector<int> data = {1000000, 5, 10000, 6, 7, 1000};
+Compress<int> comp(data);
+
+// Convert original value to compressed index
+for (int x : data) {
+    cout << x << " -> " << comp[x] << endl;
+}
+// Output: 1000000->5, 5->0, 10000->3, 6->1, 7->2, 1000->4
+
+// Get original value from compressed index
+for (int i = 0; i < comp.size(); i++) {
+    cout << i << " -> " << comp.orig(i) << endl;
+}
+// Output: 0->5, 1->6, 2->7, 3->1000, 4->10000, 5->1000000
+\end{lstlisting}
+
+\subsubsection{Coordinate Compression Notes}
+\begin{itemize}
+\item \textbf{Time Complexity}: O(N log N) for construction, O(1) for lookup
+\item \textbf{Space Complexity}: O(N) for sorted list and hashmap
+\item \textbf{Applications}: Segment trees, large value ranges, sparse data
+\item \textbf{Features}: Preserves relative ordering, bidirectional mapping
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Measure Time Utility}]
+#include <iostream>
+#include <chrono>
+#include <cstdint>
+#include <iomanip>  
+using namespace std;
+
+template<typename Func, typename... Args>
+double measure(Func&& f, Args&&... args) {
+    auto start = chrono::high_resolution_clock::now();
+    forward<Func>(f)(forward<Args>(args)...);
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> elapsed = end - start;
+    return elapsed.count();
+}
+
+int main() {
+    cout << fixed << setprecision(4);
+
+    double t1 = measure(funcVoid);
+    cout << "funcVoid took " << t1 << " ms\n";
+
+    int64_t res = 0;
+    auto wrapper = [&](int n) { res = funcInt(n); };
+    double t2 = measure(wrapper, 1000000);
+    cout << "funcInt took " << t2 << " ms, sum = " << res << "\n";
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsubsection{Measure Time Notes}
+\begin{itemize}
+\item \textbf{Template Function}: Works with any callable and arguments
+\item \textbf{High Resolution}: Uses high\_resolution\_clock for precision
+\item \textbf{Millisecond Precision}: Returns time in milliseconds
+\item \textbf{Applications}: Performance analysis, algorithm comparison
+\item \textbf{Wrapper Usage}: Use lambda wrapper for functions with return values
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={Random Number Generator}]
+#include <iostream>
+#include <random>
+#include <ctime>
+using namespace std;
+
+mt19937_64 ran(time(nullptr));
+
+int r(int a, int b) {
+    return ran() % (abs(b - a) + 1) + min(a, b);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Random Number Generator Example Usage}]
+// Generate 5 random numbers between 1 and 100
+for (int i = 0; i < 5; ++i) {
+    cout << r(1, 100) << " ";
+}
+// Output: e.g. 42 17 89 3 76
+\end{lstlisting}
+
+
+
+\subsubsection{Number Generator Notes}
+\begin{itemize}
+\item \textbf{High Quality}: Uses mt19937\_64 for 64-bit random numbers
+\item \textbf{Range Function}: r(a, b) returns random integer in [min(a,b), max(a,b)]
+\item \textbf{Time Seeding}: Seeded with current time
+\item \textbf{Applications}: Test case generation, competitive programming
+\item \textbf{Note}: Not cryptographically secure
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[caption={String Split Utility}]
+template<typename T>
+vector<T> split(const string& line, char delimiter = ' ') {
+    vector<T> result;
+    stringstream ss(line);
+    string token;
+
+    while (getline(ss, token, delimiter)) {
+        stringstream convert(token);
+        T value;
+        convert >> value;
+        if (!convert.fail()) {
+            result.push_back(value);
+        }
+    }
+
+    return result;
+}
+
+// Basic string split to vector<string>
+vector<string> split(const string& line, char delimiter = ' ') {
+    vector<string> result;
+    stringstream ss(line);
+    string token;
+    while (getline(ss, token, delimiter)) {
+        result.push_back(token);
+    }
+    return result;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={String Split Examples}]
+// Split string into integers (default delimiter is space)
+string line = "10 20 30";
+vector<int> ints = split<int>(line);
+// Result: [10, 20, 30]
+
+// Split string into doubles (specify delimiter)
+string line2 = "3.14,2.71,1.41";
+vector<double> doubles = split<double>(line2, ',');
+// Result: [3.14, 2.71, 1.41]
+
+// Read a line from input and split it
+string input;
+getline(cin, input);
+vector<int> values = split<int>(input);
+// Now you can use the values vector as needed
+\end{lstlisting}
+
 
 
 \end{document}

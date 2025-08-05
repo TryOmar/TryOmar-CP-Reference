@@ -27,6 +27,13 @@
 - [x] Segment Tree (Iterative)
 - [x] Disjoint Set Union (DSU)
 
+## Dynamic Programming
+- [x] LIS - Iterative
+- [x] LIS - Recursive
+- [x] LIS - Recursive (v2)
+- [x] LIS - Binary Search
+- [x] LIS - Segment Tree
+
 ## Graph Algorithms
 - [x] Depth-First Search (DFS)
 - [x] Breadth-First Search (BFS)
@@ -36,17 +43,37 @@
 - [x] Path Finding
 - [x] Cycle Detection
 
+## Backtracking
+- [x] Subsets
+- [x] Permutations
+- [x] Combinations
+
 ## String Algorithms
-- [ ] Trie (Prefix Tree)
+- [x] C++ STL String Functions
+- [x] Longest Substring Without Repeating Characters
+- [x] Trie (Prefix Tree)
 
 ## Mathematics
-- [ ] Fast Power (Binary Exponentiation)
-- [ ] GCD and LCM Functions
-- [ ] Combinatorics
-- [ ] Sieve of Eratosthenes
+- [x] Fast Power (Binary Exponentiation)
+- [x] GCD and LCM Functions
+- [x] Combinatorics
+- [x] Sieve of Eratosthenes
+
+## Notes & Utilities
+- [x] Binary Conversions
+- [x] Coordinate Compression
+- [x] Custom Comparators
+- [x] Measure Time
+- [x] Number Generator
+- [x] String Split
 
 ---
 **Progress Summary:**
-- ✅ Completed: Introduction, Data Structures (STL Basics + Advanced), Graph Algorithms
-- 🔄 Next Up: String Algorithms
+- ✅ Completed: Introduction, Data Structures (STL Basics + Advanced), Graph Algorithms, Dynamic Programming, Backtracking, String Algorithms, Mathematics, Notes & Utilities
+- 🎉 All sections completed!
 - 📝 Implementation Order: Top to bottom, focusing on fundamentals first
+
+**Summary of Added Topics:**
+- ✅ Dynamic Programming section (LIS variations)
+- ✅ Backtracking section (Subsets, Permutations, Combinations)
+- ✅ Notes & Utilities section (Binary Conversions, Coordinate Compression, etc.)
