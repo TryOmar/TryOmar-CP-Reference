@@ -761,7 +761,7 @@ void runDFS(int start, int n) {
 }
 \end{lstlisting}
 
-\subsubsection{DFS Notes}
+\subsubsection*{DFS Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(V + E) where V = vertices, E = edges
 \item \textbf{Space Complexity}: O(V) for recursion stack
@@ -798,7 +798,7 @@ int countComponents(int n) {
 }
 \end{lstlisting}
 
-\subsubsection{Connected Components Notes}
+\subsubsection*{Connected Components Notes}
 \begin{itemize}
 \item \textbf{Application}: Finding number of disconnected subgraphs
 \item \textbf{Algorithm}: Run DFS from each unvisited node
@@ -841,7 +841,7 @@ void runBFS(int start, int n) {
 }
 \end{lstlisting}
 
-\subsubsection{BFS Notes}
+\subsubsection*{BFS Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(V + E) where V = vertices, E = edges
 \item \textbf{Space Complexity}: O(V) for queue
@@ -875,7 +875,7 @@ void bfsWithDistance(int start, int n) {
 }
 \end{lstlisting}
 
-\subsubsection{Distance BFS Notes}
+\subsubsection*{Distance BFS Notes}
 \begin{itemize}
 \item \textbf{Shortest Path}: Guarantees shortest path in unweighted graphs
 \item \textbf{Distance Array}: Stores minimum distance from start to each node
@@ -915,7 +915,7 @@ void dijkstra(int start, int n) {
 }
 \end{lstlisting}
 
-\subsubsection{Dijkstra Notes}
+\subsubsection*{Dijkstra Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O((V + E) log V) with priority queue
 \item \textbf{Space Complexity}: O(V) for distance array and priority queue
@@ -963,7 +963,7 @@ vector<int> getPath(int end) {
 }
 \end{lstlisting}
 
-\subsubsection{Path Reconstruction Notes}
+\subsubsection*{Path Reconstruction Notes}
 \begin{itemize}
 \item \textbf{Parent Array}: Stores predecessor of each node in shortest path
 \item \textbf{Path Recovery}: Backtrack from destination to source
@@ -1000,7 +1000,7 @@ int main() {
 }
 \end{lstlisting}
 
-\subsubsection{Floyd-Warshall Notes}
+\subsubsection*{Floyd-Warshall Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(V³) - cubic time complexity
 \item \textbf{Space Complexity}: O(V²) for distance matrix
@@ -1044,7 +1044,7 @@ vector<int> topologicalSort(int n) {
 }
 \end{lstlisting}
 
-\subsubsection{DFS Topological Sort Notes}
+\subsubsection*{DFS Topological Sort Notes}
 \begin{itemize}
 \item \textbf{Post-order DFS}: Add node after visiting all neighbors
 \item \textbf{Reverse Result}: Final order is reversed DFS post-order
@@ -1093,7 +1093,7 @@ vector<int> kahnTopologicalSort(int n) {
 }
 \end{lstlisting}
 
-\subsubsection{Kahn's Algorithm Notes}
+\subsubsection*{Kahn's Algorithm Notes}
 \begin{itemize}
 \item \textbf{In-degree Tracking}: Count incoming edges for each node
 \item \textbf{Queue-based}: Process nodes with zero in-degree
@@ -1138,7 +1138,7 @@ bool detectCycleUndirected(int n) {
 }
 \end{lstlisting}
 
-\subsubsection{Undirected Cycle Detection Notes}
+\subsubsection*{Undirected Cycle Detection Notes}
 \begin{itemize}
 \item \textbf{Parent Tracking}: Avoid revisiting parent node
 \item \textbf{Back Edge}: Cycle if neighbor is visited but not parent
@@ -1184,7 +1184,7 @@ bool detectCycleDirected(int n) {
 }
 \end{lstlisting}
 
-\subsubsection{Directed Cycle Detection Notes}
+\subsubsection*{Directed Cycle Detection Notes}
 \begin{itemize}
 \item \textbf{Recursion Stack}: Track nodes in current recursion path
 \item \textbf{Back Edge}: Cycle if neighbor is in recursion stack
@@ -1229,7 +1229,7 @@ int lengthOfLIS(vector<int>& nums) {
 }
 \end{lstlisting}
 
-\subsubsection{LIS 2D DP Notes}
+\subsubsection*{LIS 2D DP Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n²) - quadratic time
 \item \textbf{Space Complexity}: O(n²) for 2D DP table
@@ -1261,7 +1261,7 @@ int lengthOfLIS(vector<int>& nums) {
 }
 \end{lstlisting}
 
-\subsubsection{LIS 1D DP Notes}
+\subsubsection*{LIS 1D DP Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n²) with memoization
 \item \textbf{Space Complexity}: O(n) for 1D DP array
@@ -1294,7 +1294,7 @@ int lengthOfLIS(const vector<int>& nums) {
 }
 \end{lstlisting}
 
-\subsubsection{LIS Recursive Notes}
+\subsubsection*{LIS Recursive Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n²) with memoization
 \item \textbf{Space Complexity}: O(n²) for DP table and recursion stack
@@ -1333,7 +1333,7 @@ vector<int> getLIS(const vector<int>& a) {
 }
 \end{lstlisting}
 
-\subsubsection{LIS Binary Search Notes}
+\subsubsection*{LIS Binary Search Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n log n) - optimal approach
 \item \textbf{Space Complexity}: O(n) for LIS array and prev array
@@ -1383,7 +1383,7 @@ int lengthOfLIS(vector<int>& nums) {
 }
 \end{lstlisting}
 
-\subsubsection{LIS Segment Tree Notes}
+\subsubsection*{LIS Segment Tree Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n log M) where M is the range of values
 \item \textbf{Space Complexity}: O(M) for segment tree
@@ -1425,7 +1425,7 @@ vector<vector<int>> subsets(vector<int>& nums) {
 }
 \end{lstlisting}
 
-\subsubsection{Subsets Notes}
+\subsubsection*{Subsets Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(2\textsuperscript{n}) where n is the number of elements
 \item \textbf{Space Complexity}: O(2\textsuperscript{n}) to store all subsets
@@ -1468,7 +1468,7 @@ vector<vector<int>> permuteUnique(vector<int>& nums) {
 }
 \end{lstlisting}
 
-\subsubsection{Permutations Without Duplicates Notes}
+\subsubsection*{Permutations Without Duplicates Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n!) where n is the number of elements
 \item \textbf{Space Complexity}: O(n!) to store all permutations
@@ -1513,7 +1513,7 @@ vector<vector<int>> permuteWithDuplicates(vector<int>& nums) {
 }
 \end{lstlisting}
 
-\subsubsection{Permutations With Duplicates Notes}
+\subsubsection*{Permutations With Duplicates Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n! × n) due to factorial permutations and element checking
 \item \textbf{Space Complexity}: O(n!) to store the resulting permutations
@@ -1552,7 +1552,7 @@ vector<vector<int>> combinations(vector<int>& nums, int k) {
 }
 \end{lstlisting}
 
-\subsubsection{Combinations Notes}
+\subsubsection*{Combinations Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(C(n,k)) or O(n!/(k!(n-k)!)) where n is number of elements and k is size of each combination
 \item \textbf{Space Complexity}: O(C(n,k)) to store all combinations
@@ -1602,7 +1602,7 @@ s1.append(s2);                 // Append to string
 s1 += s2;                      // Append operator
 \end{lstlisting}
 
-\subsubsection{STL String Notes}
+\subsubsection*{STL String Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: Most operations O(1) or O(n)
 \item \textbf{Memory Efficient}: String uses dynamic allocation
@@ -1636,7 +1636,7 @@ int lengthOfLongestSubstring(string s) {
 }
 \end{lstlisting}
 
-\subsubsection{Longest Substring Notes}
+\subsubsection*{Longest Substring Notes}
 \begin{itemize}
 \item \textbf{Sliding Window}: Uses two pointers technique
 \item \textbf{Time Complexity}: O(n) where n is string length
@@ -1660,7 +1660,7 @@ struct TrieNode {
 };
 \end{lstlisting}
 
-\subsubsection{Trie Node Notes}
+\subsubsection*{Trie Node Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(1) for insertion and search
 \item \textbf{Space Complexity}: O(ALPHABET\_SIZE $\times$ N $\times$ M)
@@ -1707,7 +1707,7 @@ public:
 };
 \end{lstlisting}
 
-\subsubsection{Trie Notes}
+\subsubsection*{Trie Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(m) where m is string length
 \item \textbf{Space Complexity}: O(ALPHABET\_SIZE $\times$ N $\times$ M)
@@ -1747,7 +1747,7 @@ int64_t modPower(int64_t base, int64_t exp, int64_t mod) {
 }
 \end{lstlisting}
 
-\subsubsection{Modular Exponentiation Notes}
+\subsubsection*{Modular Exponentiation Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(log exp) - logarithmic time
 \item \textbf{Space Complexity}: O(1) constant space
@@ -1774,7 +1774,7 @@ int lcm(int a, int b) {
 }
 \end{lstlisting}
 
-\subsubsection{GCD/LCM Notes}
+\subsubsection*{GCD/LCM Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(log min(a,b)) for GCD
 \item \textbf{Space Complexity}: O(1) constant space
@@ -1810,7 +1810,7 @@ int64_t nPr(int n, int r) {
 }
 \end{lstlisting}
 
-\subsubsection{Standard Combinatorics Notes}
+\subsubsection*{Standard Combinatorics Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(r) for both nCr and nPr
 \item \textbf{Space Complexity}: O(1) constant space
@@ -1859,7 +1859,7 @@ public:
 };
 \end{lstlisting}
 
-\subsubsection{Modular Combinatorics Notes}
+\subsubsection*{Modular Combinatorics Notes}
 \begin{itemize}
 \item \textbf{Preprocessing}: O(n) time and space for setup
 \item \textbf{Query Time}: O(1) per nCr/nPr call
@@ -1907,7 +1907,7 @@ int main() {
 }
 \end{lstlisting}
 
-\subsubsection{Sieve Notes}
+\subsubsection*{Sieve Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(n log log n) - nearly linear
 \item \textbf{Space Complexity}: O(n) for boolean array
@@ -1940,7 +1940,13 @@ const int LARGE_N = 10000; // For very large binary strings
 unsigned long long largeDecimal = bitset<LARGE_N>(longBinaryStr).to_ullong();
 \end{lstlisting}
 
-
+\subsubsection*{Binary to Decimal Notes}
+\begin{itemize}
+\item \textbf{stoll Method}: Limited to 64-bit integers
+\item \textbf{bitset Method}: Can handle larger binary strings
+\item \textbf{Time Complexity}: O(n) where n is binary string length
+\item \textbf{Applications}: Binary arithmetic, bit manipulation
+\end{itemize}
 
 \begin{lstlisting}[caption={Decimal to Binary Conversion}]
 #include <bitset>
@@ -1960,6 +1966,14 @@ binaryStr = binaryStr.substr(binaryStr.find('1') != string::npos ? binaryStr.fin
 string binaryStr = format("{:b}", decimal);
 // Result: "1010"
 \end{lstlisting}
+
+\subsubsection*{Decimal to Binary Notes}
+\begin{itemize}
+\item \textbf{bitset Method}: Most reliable for standard integers
+\item \textbf{format Method}: Clean C++20 approach
+\item \textbf{Leading Zeros}: Need manual handling for clean output
+\item \textbf{Applications}: Binary representation, bit manipulation
+\end{itemize}
 
 \newpage
 
@@ -2005,13 +2019,16 @@ for (int i = 0; i < comp.size(); i++) {
 // Output: 0->5, 1->6, 2->7, 3->1000, 4->10000, 5->1000000
 \end{lstlisting}
 
-\subsubsection{Coordinate Compression Notes}
+\subsubsection*{Coordinate Compression Notes}
 \begin{itemize}
 \item \textbf{Time Complexity}: O(N log N) for construction, O(1) for lookup
 \item \textbf{Space Complexity}: O(N) for sorted list and hashmap
+\item \textbf{Applications}: Segment trees, large value ranges, sparse data
+\item \textbf{Features}: Preserves relative ordering, bidirectional mapping
 \end{itemize}
 
 \newpage
+
 \subsection{Performance Utilities}
 Tools for measuring and optimizing code performance.
 
@@ -2046,7 +2063,7 @@ int main() {
 }
 \end{lstlisting}
 
-\subsubsection{Measure Time Notes}
+\subsubsection*{Measure Time Notes}
 \begin{itemize}
 \item \textbf{Template Function}: Works with any callable and arguments
 \item \textbf{High Resolution}: Uses high\_resolution\_clock for precision
@@ -2056,6 +2073,7 @@ int main() {
 \end{itemize}
 
 \newpage
+
 \subsection{Random Number Generation}
 Generate random numbers for testing and simulation.
 
@@ -2080,7 +2098,7 @@ for (int i = 0; i < 5; ++i) {
 // Output: e.g. 42 17 89 3 76
 \end{lstlisting}
 
-\subsubsection{Number Generator Notes}
+\subsubsection*{Number Generator Notes}
 \begin{itemize}
 \item \textbf{High Quality}: Uses mt19937\_64 for 64-bit random numbers
 \item \textbf{Range Function}: r(a, b) returns random integer in [min(a,b), max(a,b)]
@@ -2090,6 +2108,7 @@ for (int i = 0; i < 5; ++i) {
 \end{itemize}
 
 \newpage
+
 \subsection{String Utilities}
 Common string manipulation and parsing utilities.
 
@@ -2136,11 +2155,19 @@ string input; getline(cin, input);
 vector<int> values = split<int>(input);
 \end{lstlisting}
 
-
+\subsubsection*{String Utilities Notes}
+\begin{itemize}
+\item \textbf{Template Function}: Works with any numeric type
+\item \textbf{Flexible Delimiter}: Default space, can specify any character
+\item \textbf{Error Handling}: Skips invalid conversions gracefully
+\item \textbf{Applications}: Input parsing, data processing
+\end{itemize}
 
 \newpage
+
 \subsection{Custom Comparators}
 Custom comparators for sets, maps, and priority queues in C++.
+
 \begin{lstlisting}[caption={Custom Comparator Approaches}]
 // Struct comparator (descending):
 struct Desc { bool operator()(int a, int b) const { return a > b; } };
@@ -2159,7 +2186,7 @@ priority_queue<int> maxHeap; // max-heap (default)
 priority_queue<int, vector<int>, greater<int>> minHeap; // min-heap
 \end{lstlisting}
 
-\subsubsection{Custom Comparators Notes}
+\subsubsection*{Custom Comparators Notes}
 \begin{itemize}
 \item \textbf{Struct Approach}: No need to pass comparator instance to constructor
 \item \textbf{Lambda Approach}: Must pass comparator instance to constructor
