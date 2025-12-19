@@ -44,12 +44,15 @@ struct DSU {
         size[rootX] += size[rootY];
     }
     
+    /*
+    // REMOVE IS NOT SUPPORTED IN DSU
     void remove(int x) {
         int root = findParent(x);
         if (root != x) size[root]--;
         parent[x] = x;
         size[x] = 1;
     }
+    */
 };
 ```
 
@@ -121,12 +124,15 @@ struct DSUMap {
         size[rootX] += size[rootY];
     }
     
+    /*
+    // REMOVE IS NOT SUPPORTED IN DSU
     void remove(int x) {
         int root = findParent(x);
         if (root != x) size[root]--;
         parent[x] = x;
         size[x] = 1;
     }
+    */
 };
 ```
 
