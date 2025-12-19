@@ -45,7 +45,8 @@ struct DSU {
     }
     
     /*
-    // REMOVE IS NOT SUPPORTED IN DSU
+    // Element removal is not a native operation in the standard DSU design.
+    // While this function can be useful in some scenarios, DSU is fundamentally built for merging sets, not splitting them. Using removal may break guarantees about component structure and should be handled with care.
     void remove(int x) {
         int root = findParent(x);
         if (root != x) size[root]--;
@@ -125,7 +126,8 @@ struct DSUMap {
     }
     
     /*
-    // REMOVE IS NOT SUPPORTED IN DSU
+    // Element removal is not a native operation in the standard DSU design.
+    // While this function can be useful in some scenarios, DSU is fundamentally built for merging sets, not splitting them. Using removal may break guarantees about component structure and should be handled with care.
     void remove(int x) {
         int root = findParent(x);
         if (root != x) size[root]--;
