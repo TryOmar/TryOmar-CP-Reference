@@ -24,8 +24,7 @@ struct DSU {
     }
 
     int findParent(int x) {
-        if (parent[x] == x) return x;
-        return parent[x] = findParent(parent[x]);
+        return parent[x] == x ? x : parent[x] = findParent(parent[x]);
     }
 
     bool sameGroup(int x, int y) {
@@ -33,15 +32,19 @@ struct DSU {
     }
 
     void merge(int x, int y) {
-        int rootX = findParent(x);
-        int rootY = findParent(y);
+        int rootX = findParent(x), rootY = findParent(y);
+        if (rootX != rootY) {
+            if (size[rootX] < size[rootY]) swap(rootX, rootY);
+            parent[rootY] = rootX;
+            size[rootX] += size[rootY];
+        }
+    }
 
-        if (rootX == rootY) return;
-
-        if (size[rootX] < size[rootY]) swap(rootX, rootY);
-
-        parent[rootY] = rootX;
-        size[rootX] += size[rootY];
+    void remove(int x) {
+        int root = findParent(x);
+        if (root != x) size[root]--;
+        parent[x] = x;
+        size[x] = 1;
     }
 };
 ```
@@ -97,8 +100,7 @@ struct DSUMap {
 
     int findParent(int x) {
         makeSet(x);
-        if (parent[x] == x) return x;
-        return parent[x] = findParent(parent[x]);
+        return parent[x] == x ? x : parent[x] = findParent(parent[x]);
     }
 
     bool sameGroup(int x, int y) {
@@ -106,12 +108,19 @@ struct DSUMap {
     }
 
     void merge(int x, int y) {
-        int rootX = findParent(x);
-        int rootY = findParent(y);
-        if (rootX == rootY) return;
-        if (size[rootX] < size[rootY]) swap(rootX, rootY);
-        parent[rootY] = rootX;
-        size[rootX] += size[rootY];
+        int rootX = findParent(x), rootY = findParent(y);
+        if (rootX != rootY) {
+            if (size[rootX] < size[rootY]) swap(rootX, rootY);
+            parent[rootY] = rootX;
+            size[rootX] += size[rootY];
+        }
+    }
+
+    void remove(int x) {
+        int root = findParent(x);
+        if (root != x) size[root]--;
+        parent[x] = x;
+        size[x] = 1;
     }
 };
 ```
